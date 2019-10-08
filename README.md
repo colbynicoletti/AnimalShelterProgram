@@ -1,6 +1,6 @@
 # Animal Shelter Program
 
-#Scenario
+# Scenario
 
 A local animalshelter needs an application to manage their pet actions & tasks. 
 The application will allow for workers to check-in new animals as well as adopt them out, edit the animal information, 
