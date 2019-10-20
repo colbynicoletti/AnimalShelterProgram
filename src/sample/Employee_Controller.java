@@ -10,7 +10,7 @@ public class Employee_Controller {
   private ComboBox<Species> cb_species;
 
   @FXML
-  private ComboBox<?> cb_breed;
+  private ComboBox<Breeds> cb_breed;
 
   @FXML
   private Button btn_checkIn;
@@ -24,6 +24,7 @@ public class Employee_Controller {
   public void initialize() {
     btn_checkIn.setOnAction(this::handleButtonAction);
     cb_species();
+    cb_breed();
   }
 
   private void handleButtonAction(javafx.event.ActionEvent actionEvent) {
@@ -36,6 +37,13 @@ public class Employee_Controller {
     cb_species.getItems().addAll(Species.Monkeys);
     cb_species.getItems().addAll(Species.Ferrets);
 
+  }
+  private void cb_breed(){
+    cb_breed.getItems().addAll(Breeds.Husky);
+    cb_breed.getItems().addAll(Breeds.Black_Sable);
+    cb_breed.getItems().addAll(Breeds.Capuchin);
+    cb_breed.getItems().addAll(Breeds.French_Lop);
+    cb_breed.getItems().addAll(Breeds.Munchkin);
   }
 
 }
