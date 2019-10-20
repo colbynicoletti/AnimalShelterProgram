@@ -22,7 +22,7 @@ public class Login_Controller {
   public Button btn_customerLogin;
 
   @FXML
-  void customerLogin(MouseEvent event) throws IOException {
+  public void customerLogin(MouseEvent event) throws IOException {
     System.out.println("Customer Login Button Clicked.");
     Parent root2 = FXMLLoader.load(getClass().getResource("Customer.fxml"));
     Scene employeeView = new Scene(root2);
@@ -33,7 +33,7 @@ public class Login_Controller {
 
 
   @FXML
- private void employeeLogin(MouseEvent event) throws IOException {
+  public void employeeLogin(MouseEvent event) throws IOException {
     System.out.println("Employee Login Button Clicked.");
     Parent root3 = FXMLLoader.load(getClass().getResource("Employee.fxml"));
     Scene employeeView = new Scene(root3);
