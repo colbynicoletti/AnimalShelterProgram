@@ -23,11 +23,11 @@
                                 <Label layoutX="29.0" layoutY="50.0" text="Species" />
                                 <Label layoutX="27.0" layoutY="187.0" text="Pet Name" />
                                 <Label layoutX="37.0" layoutY="241.0" text="Animal ID" />
-                                <ComboBox layoutX="120.0" layoutY="46.0" prefHeight="25.0" prefWidth="206.0" />
-                                <ComboBox layoutX="120.0" layoutY="106.0" prefHeight="25.0" prefWidth="205.0" />
+                                <ComboBox fx:id="cb_species" layoutX="120.0" layoutY="46.0" prefHeight="25.0" prefWidth="206.0" />
+                                <ComboBox fx:id="cb_breed" layoutX="120.0" layoutY="106.0" prefHeight="25.0" prefWidth="205.0" />
                                 <TextField layoutX="121.0" layoutY="183.0" prefHeight="25.0" prefWidth="203.0" />
                                 <TextField layoutX="121.0" layoutY="237.0" prefHeight="25.0" prefWidth="204.0" />
-                                <Button layoutX="388.0" layoutY="237.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="165.0" text="Check-In" />
+                                <Button fx:id="btn_checkIn" layoutX="388.0" layoutY="237.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="165.0" text="Check-In" />
                             </children>
                         </AnchorPane>
                     </content>
@@ -40,8 +40,8 @@
                                 <Label layoutX="36.0" layoutY="101.0" text="Animal ID" />
                                 <Label layoutX="36.0" layoutY="173.0" text="Select Date/Time" />
                                 <Button layoutX="144.0" layoutY="262.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="252.0" text="Submit" />
-                                <ComboBox layoutX="151.0" layoutY="35.0" prefHeight="25.0" prefWidth="247.0" />
-                                <ComboBox layoutX="147.0" layoutY="169.0" prefHeight="25.0" prefWidth="246.0" />
+                                <ComboBox fx:id="cb_event" layoutX="151.0" layoutY="35.0" prefHeight="25.0" prefWidth="247.0" />
+                                <ComboBox fx:id="cb_date" layoutX="147.0" layoutY="169.0" prefHeight="25.0" prefWidth="246.0" />
                                 <TextField layoutX="151.0" layoutY="97.0" prefHeight="25.0" prefWidth="246.0" />
                             </children>
                         </AnchorPane>
