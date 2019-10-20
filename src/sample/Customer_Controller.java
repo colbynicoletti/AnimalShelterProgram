@@ -75,16 +75,24 @@ public class Customer_Controller {
     }
 
     private void initializeComboBox2() {
-        ObservableList<String> data = cb_animal_ID.getItems(); // Get item value input
-        data.clear();
-        data.add("DO12");
-        data.add("DO34");
-        data.add("CA12");
-        data.add("CA34");
-        data.add("A12");
+        //ObservableList<String> data = null;
+        try {
+            ObservableList<String> data = cb_animal_ID.getItems(); // Get item value input
+
+            //data.clear();
+            data.add("DO12");
+            data.add("DO34");
+            data.add("CA12");
+            data.add("CA34");
+            data.add("A12");
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    @FXML void adoptButton(ActionEvent event) {
+
+    @FXML
+    void adoptButton(ActionEvent event) {
         System.out.println(cb_specieSearch.getValue());
         System.out.println(cb_searchBreed.getValue());
         System.out.println(cb_animal_ID.getValue());
