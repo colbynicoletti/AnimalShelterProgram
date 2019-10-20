@@ -24,4 +24,6 @@ public class Customer_Controller {
     @FXML
     private Button btn_donate;
 
+    @FXML
+    private Button btn_search;
 }
