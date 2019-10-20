@@ -3,10 +3,16 @@ package sample;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -26,6 +32,10 @@ public class Customer_Controller {
     private Button btn_Appointment;
     @FXML
     private Button btn_donate;
+    @FXML
+    private Button goBack1;
+    @FXML
+    private Button goBack2;
     @FXML
     private TextField numberField;
     @FXML
@@ -97,5 +107,11 @@ public class Customer_Controller {
     }
 
 
-
+    public void previous(MouseEvent mouseEvent) throws IOException {
+        Parent newRoot = FXMLLoader.load(getClass().getResource("login.fxml"));
+        Scene homePage = new Scene(newRoot);
+        Stage window = new Stage();
+        window.setScene(homePage);
+        window.show();
+    }
 }

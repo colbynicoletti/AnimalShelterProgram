@@ -35,11 +35,6 @@ public class Employee_Controller {
   @FXML
   private ComboBox<?> cb_date;
 
-  @FXML
-  public  void previousPage(MouseEvent event) throws IOException {
-
-  }
-
   public void initialize() {
     btn_checkIn.setOnAction(this::handleButtonAction);
     cb_species();
