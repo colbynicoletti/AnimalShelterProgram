@@ -37,9 +37,6 @@ public class Employee_Controller {
     cb_breed();
 
   }
-  private void ActiveListener(){
-
-  }
   private void handleButtonAction(javafx.event.ActionEvent actionEvent) {
     System.out.println("Checked in");
   }
