@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -115,11 +116,11 @@ public class Customer_Controller {
     }
 
 
-    public void previous(MouseEvent mouseEvent) throws IOException {
+    public void previous(MouseEvent event) throws IOException {
         Parent newRoot = FXMLLoader.load(getClass().getResource("login.fxml"));
         Scene homePage = new Scene(newRoot);
-        Stage window = new Stage();
-        window.setScene(homePage);
-        window.show();
+        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appStage.setScene(homePage);
+        appStage.show();
     }
 }

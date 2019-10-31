@@ -2,10 +2,12 @@ package sample;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -60,11 +62,12 @@ public class Employee_Controller {
     cb_breed.getItems().addAll(Breeds.Munchkin);
   }
 
-  public void previous(javafx.scene.input.MouseEvent mouseEvent) throws IOException {
+  public void previous(MouseEvent event) throws IOException {
     Parent newRoot = FXMLLoader.load(getClass().getResource("login.fxml"));
     Scene homePage = new Scene(newRoot);
-    Stage window = new Stage();
-    window.setScene(homePage);
-    window.show();
+    Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    appStage.setScene(homePage);
+    appStage.show();
   }
+
 }

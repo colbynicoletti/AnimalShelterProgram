@@ -31,7 +31,6 @@ public class Login_Controller {
     appStage.show();
   }
 
-
   @FXML
   public void employeeLogin(MouseEvent event) throws IOException {
     System.out.println("Employee Login Button Clicked.");
