@@ -22,6 +22,7 @@ public class Employee_Controller {
   private Button btn_checkIn;
   @FXML
   private Button goBack1;
+
   @FXML
   private Button goBack2;
 
