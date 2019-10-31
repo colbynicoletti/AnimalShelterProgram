@@ -2,16 +2,12 @@ package sample;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
-import javax.swing.event.RowSorterEvent;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 public class Employee_Controller {
@@ -37,13 +33,17 @@ public class Employee_Controller {
 
   public void initialize() {
     btn_checkIn.setOnAction(this::handleButtonAction);
-    cb_species();
+      cb_species();
     cb_breed();
-  }
 
+  }
+  private void ActiveListener(){
+
+  }
   private void handleButtonAction(javafx.event.ActionEvent actionEvent) {
     System.out.println("Checked in");
   }
+
 
   private void cb_species(){
     cb_species.getItems().addAll(Species.Dogs);
@@ -53,6 +53,7 @@ public class Employee_Controller {
     cb_species.getItems().addAll(Species.Ferrets);
 
   }
+
   private void cb_breed(){
     cb_breed.getItems().addAll(Breeds.Husky);
     cb_breed.getItems().addAll(Breeds.Black_Sable);
