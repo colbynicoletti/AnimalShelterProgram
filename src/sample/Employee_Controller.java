@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -7,18 +8,27 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
-public class Employee_Controller {
+public class Employee_Controller{
 
   @FXML
   private ComboBox<Species> cb_species;
 
   @FXML
   private ComboBox<Breeds> cb_breed;
+
+  @FXML
+  TextField tf_petName;
+
+  @FXML
+  TextField tf_animalID;
 
   @FXML
   private Button btn_checkIn;
@@ -34,14 +44,41 @@ public class Employee_Controller {
   @FXML
   private ComboBox<?> cb_date;
 
+  private Connection conn ;
+
+
+
+
   public void initialize() {
     btn_checkIn.setOnAction(this::handleButtonAction);
-      cb_species();
+    cb_species();
     cb_breed();
 
+
   }
-  private void handleButtonAction(javafx.event.ActionEvent actionEvent) {
+  private void handleButtonAction(javafx.event.ActionEvent actionEvent){
+    ObservableList<Species> species = cb_species.getItems();
+    ObservableList<Breeds> breeds = cb_breed.getItems();
+    String petName = tf_petName.getText();
+    String petID = tf_animalID.getText();
     System.out.println("Checked in");
+
+    try{
+      String sql = "INSERT INTO ANIMAL(SPECIES,BREED,PET_NAME,ANIMAL_ID) VALUES (?,?,?,?)";
+      PreparedStatement addAnimal = conn.prepareStatement(sql);
+      addAnimal.setString(1,species.toString());
+      addAnimal.setString(2,breeds.toString());
+      addAnimal.setString(3,petName);
+      addAnimal.setInt(4, Integer.parseInt(petID));
+      addAnimal.executeUpdate();
+
+      tf_petName.clear();
+      tf_animalID.clear();
+    }
+    catch(Exception ex){
+      ex.printStackTrace();
+    }
+
   }
 
 
