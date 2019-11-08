@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Employee_Controller">
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Employee_Controller">
     <children>
         <TabPane prefHeight="375.0" prefWidth="601.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
@@ -25,8 +25,8 @@
                                 <Label layoutX="23.0" layoutY="211.0" text="Animal ID" />
                                 <ComboBox fx:id="cb_species" layoutX="120.0" layoutY="46.0" prefHeight="25.0" prefWidth="206.0" />
                                 <ComboBox fx:id="cb_breed" layoutX="120.0" layoutY="93.0" prefHeight="25.0" prefWidth="205.0" />
-                                <TextField layoutX="121.0" layoutY="150.0" prefHeight="25.0" prefWidth="203.0" />
-                                <TextField layoutX="121.0" layoutY="207.0" prefHeight="25.0" prefWidth="204.0" />
+                                <TextField fx:id="tf_petName" layoutX="121.0" layoutY="150.0" prefHeight="25.0" prefWidth="203.0" />
+                                <TextField fx:id="tf_animalID" layoutX="121.0" layoutY="207.0" prefHeight="25.0" prefWidth="204.0" />
                                 <Button fx:id="btn_checkIn" layoutX="121.0" layoutY="265.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="109.0" text="Check-In" />
                                 <Button fx:id="goBack1" layoutX="412.0" layoutY="265.0" mnemonicParsing="false" onMouseClicked="#previous" text="Previous Page" />
                             </children>
