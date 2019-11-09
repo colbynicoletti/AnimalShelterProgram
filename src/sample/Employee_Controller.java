@@ -42,10 +42,10 @@ public class Employee_Controller {
     @FXML
     private ComboBox<?> cb_date;
 
-    private Species species;
-    private Breeds breed;
-    private String petName;
-    private String animalID;
+    Species species;
+    Breeds breed;
+    String petName;
+    String animalID;
 
 
     public void initialize() {
@@ -63,6 +63,7 @@ public class Employee_Controller {
     }
 
     private void handleButtonAction(javafx.event.ActionEvent actionEvent) {
+
         try {
             String productQuery = "INSERT INTO ANIMALS(SPECIES, BREED, PETNAME, ANIMALID)" + "VALUES (?,?,?,?)";
             PreparedStatement addAnimal = Login_Controller.conn.prepareStatement(productQuery);
@@ -71,15 +72,14 @@ public class Employee_Controller {
             addAnimal.setString(3, petName);
             addAnimal.setString(4, animalID);
             addAnimal.executeUpdate();
-            addAnimal.clearParameters();
-            System.out.println("Animal Checked In");
+            tf_petName.clear();
+            tf_animalID.clear();
+            cb_breed.getSelectionModel().clearSelection();
+            cb_species.getSelectionModel().clearSelection();
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        tf_petName.clear();
-        tf_animalID.clear();
-        cb_breed.getSelectionModel().clearSelection();
-        cb_species.getSelectionModel().clearSelection();
 
     }
 
