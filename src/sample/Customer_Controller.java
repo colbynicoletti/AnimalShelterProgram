@@ -47,7 +47,7 @@ public class Customer_Controller {
         initializeComboBox();
         initializeComboBox1();
         initializeComboBox2();
-        initializeComboBox3();
+        //initializeComboBox3();
     }
 
     private void initializeComboBox() {
@@ -92,6 +92,7 @@ public class Customer_Controller {
     }
 
 
+
     @FXML
     void adoptButton(ActionEvent event) {
         System.out.println(cb_specieSearch.getValue());
@@ -100,14 +101,14 @@ public class Customer_Controller {
 
     }
 
-    private void initializeComboBox3() {
-//        Calendar cal = new GregorianCalendar();
-//        int month =cal.get(Calendar.MONTH);
-//        int year =cal.get(Calendar.YEAR);
-//        int day =cal.get(Calendar.DAY_OF_MONTH);
-//        cb_dateTime.add(+year+"-"+(month+1)+"-"+day);
-//        cmb_date.addItem(+year+"-"+(month+1)+"-"+(day+1));
-    }
+//    private void initializeComboBox3() {
+////        Calendar cal = new GregorianCalendar();
+////        int month =cal.get(Calendar.MONTH);
+////        int year =cal.get(Calendar.YEAR);
+////        int day =cal.get(Calendar.DAY_OF_MONTH);
+////        cb_dateTime.add(+year+"-"+(month+1)+"-"+day);
+////        cmb_date.addItem(+year+"-"+(month+1)+"-"+(day+1));
+//    }
 
     @FXML
     void submitAppointment(ActionEvent event) {
