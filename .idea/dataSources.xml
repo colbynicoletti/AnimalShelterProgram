@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="AnimalShelter" uuid="d37b51f8-09ee-46d3-bc53-0d652ad7cc4a">
+    <data-source source="LOCAL" name="AnimalShelterDB" single-connection="true" uuid="d45d5894-6929-4005-ace0-b1cda46395b4">
       <driver-ref>h2.unified</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.h2.Driver</jdbc-driver>
-      <jdbc-url>jdbc:h2:$PROJECT_DIR$/res/AnimalShelter</jdbc-url>
+      <jdbc-url>jdbc:h2:$PROJECT_DIR$/res/AnimalShelterDB</jdbc-url>
     </data-source>
   </component>
 </project>
