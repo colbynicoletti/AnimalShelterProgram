@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="AnimalShelterDB" single-connection="true" uuid="d45d5894-6929-4005-ace0-b1cda46395b4">
+    <data-source source="LOCAL" name="AnimalShelterDB" uuid="5fada534-e89a-47d7-b303-a9eb07d4185f">
       <driver-ref>h2.unified</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.h2.Driver</jdbc-driver>
