@@ -7,7 +7,7 @@ public interface Animal {
 
     void setBreed(Breeds breed);
 
-    String getBreed();
+    Breeds getBreed();
 
     void setName(String petName);
 
@@ -15,6 +15,6 @@ public interface Animal {
 
     void setAnimalID(int animalID);
 
-    int getAnimalID();
+    String getAnimalID();
 }
 

@@ -1,9 +1,21 @@
 package sample;
 
 public enum Breeds {
-  Husky,
+  CAT,
+  Persion_Cat,
+  Russian_Blue,
+  Bengal_Cat,
+  Bristish_Shorthair,
   Munchkin,
+  DOG,
+  Husky,
+  Pug,
+  Beagle,
+  Bulldog,
+  Black_Sable,
+  RABBITT,
   French_Lop,
-  Capuchin,
-  Black_Sable;
+  MONKEY,
+  Capuchin;
+
 }
