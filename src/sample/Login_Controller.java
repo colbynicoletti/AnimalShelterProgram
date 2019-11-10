@@ -63,32 +63,7 @@ public class Login_Controller {
         Alert a = new Alert(Alert.AlertType.ERROR);
         a.show();
       }
-      //loadAnimalTable();
 
   }
-
-//  private void loadAnimalTable() {
-//    try {
-//      String sql = "SELECT * FROM ANIMALS";
-//      ResultSet rs = stmt.executeQuery(sql);
-//      while (rs.next()) {
-//        String species = rs.getString("Species");
-//        String breed= rs.getString("Breed");
-//        String petName = rs.getString("PetName");
-//        String animalID = rs.getString("AnimalID");
-//
-//        System.out.println(species + breed + petName + animalID);
-//
-//      }
-//      rs.close();
-//    } catch (SQLException se) {
-//      se.printStackTrace();
-//      Alert a = new Alert(Alert.AlertType.ERROR);
-//      a.show();
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//    }
-//  }
-
 }
 

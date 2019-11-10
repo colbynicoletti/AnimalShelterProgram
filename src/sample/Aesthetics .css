@@ -1,7 +1,6 @@
 .root {
     -fx-background-color: E8E8E8;
-    -fx-font: 9.5;
-    -fx-background-image: url("Animal_Shelter1.Beta.jpg");
+    -fx-background-image: url("AnimalShelterBackground.jpg");
     -fx-font-size: 12px;
     -fx-font-weight: bold;
     -fx-text-fill: #333333;

@@ -55,22 +55,24 @@ public class Employee_Controller extends Main {
 
 
     private void handleButtonAction(javafx.event.ActionEvent actionEvent) {
-        Species species = cb_species.getValue();
-        Breeds breeds = cb_breed.getValue();
+        Species species = cb_species.getSelectionModel().getSelectedItem();
+        Breeds breeds = cb_breed.getSelectionModel().getSelectedItem();
         String petName = tf_petName.getText();
-        String petID = tf_animalID.getText();
+        String animalID = tf_animalID.getText();
 
         try {
             String productQuery = "INSERT INTO ANIMALS(SPECIES,BREED,PETNAME,ANIMALID) VALUES (?,?,?,?)";
-            PreparedStatement addAnimal = conn.prepareStatement(productQuery);
+            PreparedStatement addAnimal = Login_Controller.conn.prepareStatement(productQuery);
             addAnimal.setString(1, species.toString());
             addAnimal.setString(2, breeds.toString());
             addAnimal.setString(3, petName);
-            addAnimal.setInt(4, Integer.parseInt(petID));
+            addAnimal.setString(4, animalID);
             addAnimal.executeUpdate();
-
+            System.out.println("Data inserted into database. Close program and refresh database");
             tf_petName.clear();
             tf_animalID.clear();
+            cb_species.getSelectionModel().clearSelection();
+            cb_breed.getSelectionModel().clearSelection();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
