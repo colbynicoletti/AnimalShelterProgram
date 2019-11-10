@@ -1,7 +1,7 @@
 package sample;
 
 public class Widget extends AnimalType {
-    Widget(Species species, Breeds breeds, String petName, int animalID) {
+    Widget(Species species, Breeds breeds, String petName, String animalID) {
         super(species, breeds, petName, animalID);
     }
 
@@ -11,7 +11,7 @@ public class Widget extends AnimalType {
     }
 
     @Override
-    public String getBreed() {
+    public Breeds getBreed() {
         return null;
     }
 
