@@ -42,15 +42,6 @@ public class Main extends Application {
                 stmt = conn.createStatement();
                 System.out.println("Database Connection Established.");
 
-      /*
-      String sql = "SELECT * FROM JOBS";
-
-      ResultSet rs = stmt.executeQuery(sql);
-      while (rs.next()) {
-        System.out.println(rs.getString(1));
-      }
-
-       */
                 stmt.close();
                 conn.close();
 
