@@ -9,7 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -42,8 +41,7 @@ public class Customer_Controller {
     private TextField numberField;
     @FXML
     private TextField nameField;
-    @FXML
-    private TableView<Animal> tvAdopt;
+
 
     public void initialize() {
         initializeComboBox();
