@@ -13,8 +13,8 @@ public interface Animal {
 
     String getName();
 
-    void setAnimalID(int animalID);
+    void setAnimalID(String animalID);
 
-    int getAnimalID();
+    String getAnimalID();
 }
 

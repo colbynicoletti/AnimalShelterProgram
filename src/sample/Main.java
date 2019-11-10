@@ -6,21 +6,16 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-<<<<<<<<< Temporary merge branch 1
-import java.sql.*;
-=========
 
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
->>>>>>>>> Temporary merge branch 2
 
 public class Main extends Application {
 
@@ -39,6 +34,45 @@ public class Main extends Application {
 //        gridPane.setPadding(new Insets(60));
     }
 
+    public static class databaseConnection {
+
+        private static final String jdbc_driver = "org.h2.Driver";
+        private static final String DB_url = "jdbc:h2:./res/AnimalShelter";
+
+        private static final String user = "";
+        private static final String pass = "";
+        private Connection conn = null;
+        private Statement stmt = null;
+
+        /**
+         * Method that starts the connection between the controller and the database.
+         */
+        public void connDatabase() {
+            try {
+                Class.forName(jdbc_driver);
+                conn = DriverManager.getConnection(DB_url, user, pass);
+                stmt = conn.createStatement();
+                System.out.println("Database Connection Established.");
+
+      /*
+      String sql = "SELECT * FROM JOBS";
+
+      ResultSet rs = stmt.executeQuery(sql);
+      while (rs.next()) {
+        System.out.println(rs.getString(1));
+      }
+
+       */
+                stmt.close();
+                conn.close();
+
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 
 
         public static void main(String[] args) {
@@ -46,3 +80,4 @@ public class Main extends Application {
 
         }
     }
+}

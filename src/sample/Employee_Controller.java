@@ -1,19 +1,22 @@
 package sample;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
-public class Employee_Controller {
+public class Employee_Controller extends Main {
 
     @FXML
     private ChoiceBox<Species> cb_species;
@@ -29,7 +32,6 @@ public class Employee_Controller {
 
     @FXML
     private Button btn_checkIn;
-
     @FXML
     private Button goBack1;
 
@@ -42,48 +44,40 @@ public class Employee_Controller {
     @FXML
     private ComboBox<?> cb_date;
 
-    Species species;
-    Breeds breed;
-    String petName;
-    String animalID;
 
+    private Connection conn = null;
 
     public void initialize() {
         btn_checkIn.setOnAction(this::handleButtonAction);
-        cb_species();
-        cb_breed();
-        saveUserInput();
+        setCb_breed();
+        setCb_species();
     }
 
-    public void saveUserInput() {
-        species = cb_species.getValue();
-        breed = cb_breed.getValue();
-        petName = tf_petName.getText();
-        animalID = tf_animalID.getText();
-    }
 
     private void handleButtonAction(javafx.event.ActionEvent actionEvent) {
+        Species species = cb_species.getValue();
+        Breeds breeds = cb_breed.getValue();
+        String petName = tf_petName.getText();
+        String petID = tf_animalID.getText();
 
         try {
-            String productQuery = "INSERT INTO ANIMALS(SPECIES, BREED, PETNAME, ANIMALID)" + "VALUES (?,?,?,?)";
-            PreparedStatement addAnimal = Login_Controller.conn.prepareStatement(productQuery);
-            addAnimal.setString(1, String.valueOf(species));
-            addAnimal.setString(2, String.valueOf(breed));
+            String productQuery = "INSERT INTO ANIMALS(SPECIES,BREED,PETNAME,ANIMALID) VALUES (?,?,?,?)";
+            PreparedStatement addAnimal = conn.prepareStatement(productQuery);
+            addAnimal.setString(1, species.toString());
+            addAnimal.setString(2, breeds.toString());
             addAnimal.setString(3, petName);
-            addAnimal.setString(4, animalID);
+            addAnimal.setInt(4, Integer.parseInt(petID));
             addAnimal.executeUpdate();
+
             tf_petName.clear();
             tf_animalID.clear();
-            cb_breed.getSelectionModel().clearSelection();
-            cb_species.getSelectionModel().clearSelection();
-
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
     }
 
-    private void cb_species() {
+    private void setCb_species() {
         cb_species.getItems().addAll(Species.Dogs);
         cb_species.getItems().addAll(Species.Cats);
         cb_species.getItems().addAll(Species.Rabbits);
@@ -92,7 +86,7 @@ public class Employee_Controller {
 
     }
 
-    private void cb_breed() {
+    private void setCb_breed() {
         cb_breed.getItems().addAll(Breeds.Husky);
         cb_breed.getItems().addAll(Breeds.Black_Sable);
         cb_breed.getItems().addAll(Breeds.Capuchin);

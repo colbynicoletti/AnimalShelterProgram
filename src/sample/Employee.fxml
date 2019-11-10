@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -34,6 +36,22 @@
                         </AnchorPane>
                     </content>
                 </Tab>
+            <Tab text="Display">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tvDisplay" layoutX="14.0" layoutY="14.0" prefHeight="305.0" prefWidth="571.0">
+                          <columns>
+                            <TableColumn fx:id="colSpecies" prefWidth="151.0" text="Species" />
+                            <TableColumn fx:id="colBreed" prefWidth="140.0" text="Breed" />
+                              <TableColumn fx:id="colPetName" prefWidth="133.0" text="Pet Name" />
+                              <TableColumn fx:id="colAnimalID" prefWidth="146.0" text="Animal ID" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
                 <Tab text="Schedule Events">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="238.0" prefWidth="463.0">

@@ -4,9 +4,9 @@ abstract class AnimalType implements Animal {
     private Species species;
     private Breeds breeds;
     private String petName;
-    private int animalID;
+    private String animalID;
 
-    AnimalType(Species species, Breeds breeds, String petName, int animalID) {
+    AnimalType(Species species, Breeds breeds, String petName, String animalID) {
         this.species = species;
         this.breeds = breeds;
         this.petName = petName;
@@ -39,12 +39,12 @@ abstract class AnimalType implements Animal {
     }
 
     @Override
-    public int getAnimalID() {
+    public String getAnimalID() {
         return animalID;
     }
 
     @Override
-    public void setAnimalID(int animalID) {
+    public void setAnimalID(String animalID) {
         this.animalID = animalID;
     }
 
