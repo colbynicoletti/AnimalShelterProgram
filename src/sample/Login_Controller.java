@@ -10,8 +10,10 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
+import java.util.Properties;
 
 public class Login_Controller {
 
@@ -50,11 +52,14 @@ public class Login_Controller {
       final String JDBC_DRIVER = "org.h2.Driver";
       final String DB_URL = "jdbc:h2:./res/AnimalShelterDB";
       final String USER = "";
-      final String PASS = "";
+      final String PASS;
 
       System.out.println("Attempting to connect to database");
       try {
         Class.forName(JDBC_DRIVER);
+        Properties prop = new Properties();
+        prop.load(new FileInputStream("res/properties"));
+        PASS = prop.getProperty("password");
         conn = DriverManager.getConnection(DB_URL, USER, PASS);
         stmt = conn.createStatement();
         System.out.println("Successfully connected to Animal database!");
