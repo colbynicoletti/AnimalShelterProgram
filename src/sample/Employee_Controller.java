@@ -14,8 +14,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 public class Employee_Controller extends Main {
 
@@ -23,7 +21,7 @@ public class Employee_Controller extends Main {
     private ComboBox<Species> cb_species;
 
     @FXML
-    private ComboBox<Breeds> cb_breed;
+    private ComboBox<DogBreeds> cb_breed;
 
     @FXML
     TextField tf_petName;
@@ -61,6 +59,9 @@ public class Employee_Controller extends Main {
     @FXML
     private TableView<Animal> tvDisplay;
 
+    @FXML
+    private Button btn_updateSpecies;
+
     private Connection conn = null;
 
     ObservableList<Animal> observableAnimal;
@@ -69,7 +70,6 @@ public class Employee_Controller extends Main {
     public void initialize() {
 //        btn_checkIn.setOnAction(this::handleButtonAction);
         cb_species();
-        cb_breed();
         checkInMethod();
     }
 
@@ -98,6 +98,7 @@ public class Employee_Controller extends Main {
 //    } //end check in animal button
 
     private void cb_species() {
+
         cb_species.getItems().addAll(Species.Dogs);
         cb_species.getItems().addAll(Species.Cats);
         cb_species.getItems().addAll(Species.Rabbits);
@@ -106,12 +107,26 @@ public class Employee_Controller extends Main {
 
     }
 
-    private void cb_breed() {
-        cb_breed.getItems().addAll(Breeds.Husky);
-        cb_breed.getItems().addAll(Breeds.Black_Sable);
-        cb_breed.getItems().addAll(Breeds.Capuchin);
-        cb_breed.getItems().addAll(Breeds.French_Lop);
-        cb_breed.getItems().addAll(Breeds.Munchkin);
+    @FXML
+    void updateSpecies(MouseEvent event) {
+        System.out.println(cb_species.getValue());
+        System.out.println("Dogs");
+        System.out.println(cb_species.getValue().equals("Dogs"));
+
+        if (cb_species.getValue().equals("Dogs")){
+            System.out.println("Dogs are selected.");
+            addDogBreeds();
+        }
+    }
+
+    public void addDogBreeds(){
+        for (DogBreeds it : DogBreeds.values()) {
+            cb_breed.getItems().add(it);
+        }
+    }
+
+    private static void cb_breed() {
+
     }
 
     private void checkInMethod(){
@@ -134,7 +149,7 @@ public class Employee_Controller extends Main {
     @FXML
     void checkIn(MouseEvent event) {
         Species species = cb_species.getValue();
-        Breeds breeds = cb_breed.getValue();
+        DogBreeds breeds = cb_breed.getValue();
         String petName = tf_petName.getText();
         tf_petName.clear();
         String animalID = tf_animalID.getText();
