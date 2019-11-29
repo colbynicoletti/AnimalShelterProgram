@@ -7,7 +7,7 @@ public interface Animal {
 
     void setBreed(DogBreeds breed);
 
-    String getBreed();
+    Breeds getBreed();
 
     void setName(String petName);
 

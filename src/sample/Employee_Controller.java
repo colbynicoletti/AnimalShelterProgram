@@ -1,27 +1,28 @@
 package sample;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 public class Employee_Controller extends Main {
 
     @FXML
-    private ComboBox<Species> cb_species;
+    private ChoiceBox<Species> cb_species;
 
     @FXML
-    private ComboBox<DogBreeds> cb_breed;
+    private ChoiceBox<Breeds> cb_breed;
 
     @FXML
     TextField tf_petName;
@@ -31,7 +32,6 @@ public class Employee_Controller extends Main {
 
     @FXML
     private Button btn_checkIn;
-
     @FXML
     private Button goBack1;
 
@@ -44,61 +44,42 @@ public class Employee_Controller extends Main {
     @FXML
     private ComboBox<?> cb_date;
 
-    @FXML
-    private TableColumn<?, ?> colSpecies;
-
-    @FXML
-    private TableColumn<?, ?> colBreed;
-
-    @FXML
-    private TableColumn<?, ?> colPetName;
-
-    @FXML
-    private TableColumn<?, ?> colAnimalID;
-
-    @FXML
-    private TableView<Animal> tvDisplay;
-
-    @FXML
-    private Button btn_updateSpecies;
 
     private Connection conn = null;
 
-    ObservableList<Animal> observableAnimal;
-
-
     public void initialize() {
-//        btn_checkIn.setOnAction(this::handleButtonAction);
-        cb_species();
-        checkInMethod();
+        btn_checkIn.setOnAction(this::handleButtonAction);
+        setCb_breed();
+        setCb_species();
     }
 
 
-//    private void handleButtonAction(javafx.event.ActionEvent actionEvent) {
-//        Species species = cb_species.getValue();
-//        Breeds breeds = cb_breed.getValue();
-//        String petName = tf_petName.getText();
-//        String petID = tf_animalID.getText();
-//
-//        try {
-//            String productQuery = "INSERT INTO ANIMAL(SPECIES,BREED,PET_NAME,ANIMAL_ID) VALUES (?,?,?,?)";
-//            PreparedStatement addAnimal = conn.prepareStatement(productQuery);
-//            addAnimal.setString(1, species.toString());
-//            addAnimal.setString(2, breeds.toString());
-//            addAnimal.setString(3, petName);
-//            addAnimal.setInt(4, Integer.parseInt(petID));
-//            addAnimal.executeUpdate();
-//
-//            tf_petName.clear();
-//            tf_animalID.clear();
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//        }
-//
-//    } //end check in animal button
+    private void handleButtonAction(javafx.event.ActionEvent actionEvent) {
+        Species species = cb_species.getSelectionModel().getSelectedItem();
+        Breeds breeds = cb_breed.getSelectionModel().getSelectedItem();
+        String petName = tf_petName.getText();
+        String animalID = tf_animalID.getText();
 
-    private void cb_species() {
+        try {
+            String productQuery = "INSERT INTO ANIMALS(SPECIES,BREED,PETNAME,ANIMALID) VALUES (?,?,?,?)";
+            PreparedStatement addAnimal = Login_Controller.conn.prepareStatement(productQuery);
+            addAnimal.setString(1, species.toString());
+            addAnimal.setString(2, breeds.toString());
+            addAnimal.setString(3, petName);
+            addAnimal.setString(4, animalID);
+            addAnimal.executeUpdate();
+            System.out.println("Data inserted into database. Close program and refresh database");
+            tf_petName.clear();
+            tf_animalID.clear();
+            cb_species.getSelectionModel().clearSelection();
+            cb_breed.getSelectionModel().clearSelection();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
+    }
+
+    private void setCb_species() {
         cb_species.getItems().addAll(Species.Dogs);
         cb_species.getItems().addAll(Species.Cats);
         cb_species.getItems().addAll(Species.Rabbits);
@@ -107,35 +88,12 @@ public class Employee_Controller extends Main {
 
     }
 
-    @FXML
-    void updateSpecies(MouseEvent event) {
-        System.out.println(cb_species.getValue());
-        System.out.println("Dogs");
-        System.out.println(cb_species.getValue().equals("Dogs"));
-
-        if (cb_species.getValue().equals("Dogs")){
-            System.out.println("Dogs are selected.");
-            addDogBreeds();
-        }
-    }
-
-    public void addDogBreeds(){
-        for (DogBreeds it : DogBreeds.values()) {
-            cb_breed.getItems().add(it);
-        }
-    }
-
-    private static void cb_breed() {
-
-    }
-
-    private void checkInMethod(){
-        observableAnimal = FXCollections.observableArrayList();
-        colSpecies.setCellValueFactory(new PropertyValueFactory("species"));
-        colBreed.setCellValueFactory(new PropertyValueFactory("breeds"));
-        colPetName.setCellValueFactory(new PropertyValueFactory("petName"));
-        colAnimalID.setCellValueFactory(new PropertyValueFactory("animalID"));
-        tvDisplay.setItems(observableAnimal);
+    private void setCb_breed() {
+        cb_breed.getItems().addAll(Breeds.Husky);
+        cb_breed.getItems().addAll(Breeds.Black_Sable);
+        cb_breed.getItems().addAll(Breeds.Capuchin);
+        cb_breed.getItems().addAll(Breeds.French_Lop);
+        cb_breed.getItems().addAll(Breeds.Munchkin);
     }
 
     public void previous(MouseEvent event) throws IOException {
@@ -144,18 +102,6 @@ public class Employee_Controller extends Main {
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appStage.setScene(homePage);
         appStage.show();
-    }
-
-    @FXML
-    void checkIn(MouseEvent event) {
-        Species species = cb_species.getValue();
-        DogBreeds breeds = cb_breed.getValue();
-        String petName = tf_petName.getText();
-        tf_petName.clear();
-        String animalID = tf_animalID.getText();
-
-        observableAnimal.add(new Widget(species, breeds, petName, animalID));
-        tvDisplay.getItems().add((Animal) observableAnimal);
     }
 
 }
