@@ -40,18 +40,14 @@ public class Customer_Controller {
     @FXML
     private TextField nameField;
     @FXML
-    private TableColumn<?, ?> speciesCol;
-
-    @FXML
-    private TableColumn<?, ?> breedCol;
-
-    @FXML
-    private TableColumn<?, ?> petNameCol;
-
-    @FXML
-    private TableColumn<?, ?> idCol;
-    @FXML
     private TextArea selectedAnimal;
+
+    @FXML
+    private TextArea donationTxtArea;
+    @FXML
+    private TextField amountField;
+    @FXML
+    private DatePicker dateAndTime;
 
 
 
@@ -87,59 +83,14 @@ public class Customer_Controller {
         idChoice.getSelectionModel().selectFirst();
     }
 
-    @FXML
-    void searchButton(ActionEvent event) {
-        ObservableList <AnimalType> items = FXCollections.observableArrayList();
 
-        displayAnimal.setItems(items);
-        items.add(new AnimalType(speciesChoice.getValue(), breedChoice.getValue(), idChoice.getValue()) {
-            @Override
-            public void setBreed(Breeds breed) {
-
-            }
-
-            @Override
-            public Breeds getBreed() {
-                return null;
-            }
-
-            @Override
-            public void setName(String petName) {
-
-            }
-
-            @Override
-            public String getName() {
-                return null;
-            }
-
-
-            public void setAnimalID(int animalID) {
-
-            }
-        });
-
-//        items.add(speciesChoice.getValue());
-//        displayAnimal.getItems().add(String.valueOf( speciesChoice.getValue()));
-//        displayAnimal.getItems().add(String.valueOf(breedChoice.getValue()));
-//        displayAnimal.getItems().add(String.valueOf(idChoice.getValue()));
-
-    }
     @FXML
     void adoptButton(ActionEvent event) {
 
-        selectedAnimal.appendText(String.valueOf(displayAnimal.getSelectionModel().getSelectedItem()));
+       // selectedAnimal.appendText(String.valueOf(displayAnimal.getSelectionModel().getSelectedItem()));
 
     }
 
-//    private void initializeComboBox3() {
-////        Calendar cal = new GregorianCalendar();
-////        int month =cal.get(Calendar.MONTH);
-////        int year =cal.get(Calendar.YEAR);
-////        int day =cal.get(Calendar.DAY_OF_MONTH);
-////        cb_dateTime.add(+year+"-"+(month+1)+"-"+day);
-////        cmb_date.addItem(+year+"-"+(month+1)+"-"+(day+1));
-//    }
 
     @FXML
     void submitAppointment(ActionEvent event) {
@@ -148,9 +99,18 @@ public class Customer_Controller {
         System.out.println(nameField.getText());
         System.out.println(numberField.getText());
         System.out.println(displayAnimal.getSelectionModel().getSelectedItem());
+//        System.out.println(dateAndTime.getValue());
+
 
     }
 
+    @FXML
+    void donateBtn(ActionEvent event) {
+        donationTxtArea.appendText("THANK YOU FOR YOUR DONATION OF: \n");
+        donationTxtArea.appendText(amountField.getText() + "\n");
+        donationTxtArea.appendText("Have a good day");
+
+    }
 
     public void previous(MouseEvent event) throws IOException {
         Parent newRoot = FXMLLoader.load(getClass().getResource("login.fxml"));
