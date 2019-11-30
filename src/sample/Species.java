@@ -6,13 +6,6 @@ public enum Species {
     Rabbits,
     Monkeys,
     Ferrets;
-
-    String species;
-
-    public String getSpecies() {
-        return species;
-    }
-
 }
 
 

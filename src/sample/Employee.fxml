@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<?import javafx.scene.control.ChoiceBox?>
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Employee_Controller">
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Employee_Controller">
     <children>
         <TabPane prefHeight="375.0" prefWidth="601.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
@@ -26,49 +28,61 @@
                                 <Label layoutX="29.0" layoutY="50.0" text="Species" />
                                 <Label layoutX="23.0" layoutY="154.0" text="Pet Name" />
                                 <Label layoutX="23.0" layoutY="211.0" text="Animal ID" />
-                                <ChoiceBox fx:id="cb_species" layoutX="120.0" layoutY="46.0" prefHeight="25.0" prefWidth="206.0" />
-                                <ChoiceBox fx:id="cb_breed" layoutX="120.0" layoutY="93.0" prefHeight="25.0" prefWidth="205.0" />
+                                <ChoiceBox fx:id="ch_species" layoutX="120.0" layoutY="46.0" prefHeight="25.0" prefWidth="206.0" />
+                                <TextField fx:id="tf_breed" layoutX="121.0" layoutY="93.0" prefHeight="26.0" prefWidth="203.0" />
                                 <TextField fx:id="tf_petName" layoutX="121.0" layoutY="150.0" prefHeight="25.0" prefWidth="203.0" />
                                 <TextField fx:id="tf_animalID" layoutX="121.0" layoutY="207.0" prefHeight="25.0" prefWidth="204.0" />
                                 <Button fx:id="btn_checkIn" layoutX="121.0" layoutY="265.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="109.0" text="Check-In" />
                                 <Button fx:id="goBack1" layoutX="412.0" layoutY="265.0" mnemonicParsing="false" onMouseClicked="#previous" text="Previous Page" />
-                        <Button fx:id="btn_updateSpecies" layoutX="400.0" layoutY="82.0" mnemonicParsing="false" onMouseClicked="#updateSpecies" prefHeight="26.0" prefWidth="109.0" text="Update" />
+                                <Button fx:id="btn_generateId" layoutX="357.0" layoutY="206.0" mnemonicParsing="false" onMouseClicked="#generateId" prefHeight="26.0" prefWidth="109.0" text="Generate ID" />
                             </children>
                         </AnchorPane>
                     </content>
                 </Tab>
-            <Tab text="Display">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TableView fx:id="tvDisplay" layoutX="14.0" layoutY="14.0" prefHeight="305.0" prefWidth="571.0">
-                          <columns>
-                            <TableColumn fx:id="colSpecies" prefWidth="151.0" text="Species" />
-                            <TableColumn fx:id="colBreed" prefWidth="140.0" text="Breed" />
-                              <TableColumn fx:id="colPetName" prefWidth="133.0" text="Pet Name" />
-                              <TableColumn fx:id="colAnimalID" prefWidth="146.0" text="Animal ID" />
-                          </columns>
-                        </TableView>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
                 <Tab text="Schedule Events">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="238.0" prefWidth="463.0">
                             <children>
-                                <Label layoutX="36.0" layoutY="39.0" text="Select Event" />
-                                <Label layoutX="42.0" layoutY="88.0" text="Animal ID" />
-                                <Label layoutX="36.0" layoutY="151.0" text="Select Date/Time" />
-                                <Button layoutX="151.0" layoutY="220.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" text="Submit" />
-                                <ComboBox fx:id="cb_event" layoutX="151.0" layoutY="35.0" prefHeight="25.0" prefWidth="247.0" />
-                                <ComboBox fx:id="cb_date" layoutX="151.0" layoutY="147.0" prefHeight="25.0" prefWidth="246.0" />
-                                <TextField layoutX="151.0" layoutY="84.0" prefHeight="25.0" prefWidth="246.0" />
-                                <Button fx:id="goBack2" layoutX="397.0" layoutY="220.0" mnemonicParsing="false" onMouseClicked="#previous" text="Previous Page" />
+                                <Label layoutX="30.0" layoutY="38.0" text="Select Event" />
+                                <Label fx:id="lbl_dateFormatE" layoutX="115.0" layoutY="127.0" prefHeight="18.0" prefWidth="151.0" text="Date Format: (mm/dd/yyyy)" />
+                                <Label layoutX="36.0" layoutY="151.0" text="Select Date" />
+                                <Button fx:id="btn_submitEvent" layoutX="361.0" layoutY="34.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="159.0" text="Submit" />
+                                <Button fx:id="goBack2" layoutX="360.0" layoutY="146.0" mnemonicParsing="false" onMouseClicked="#previous" prefHeight="26.0" prefWidth="161.0" text="Previous Page" />
+                        <ListView fx:id="lv_displayAnimal" layoutX="9.0" layoutY="185.0" prefHeight="151.0" prefWidth="582.0" />
+                        <TextField fx:id="tf_eventDate" layoutX="116.0" layoutY="146.0" prefHeight="26.0" prefWidth="221.0" />
+                        <ComboBox fx:id="cb_time" layoutX="114.0" layoutY="80.0" prefHeight="26.0" prefWidth="224.0" />
+                        <Label layoutX="36.0" layoutY="85.0" text="Time" />
+                        <ChoiceBox fx:id="ch_event" layoutX="115.0" layoutY="34.0" prefHeight="26.0" prefWidth="224.0" />
                             </children>
                         </AnchorPane>
                     </content>
                 </Tab>
+                <Tab text="Display Event">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <TableView fx:id="tvDisplay" layoutX="14.0" layoutY="14.0" prefHeight="305.0" prefWidth="571.0">
+                                    <columns>
+                                        <TableColumn fx:id="colEvent" prefWidth="151.0" text="Event" />
+                                        <TableColumn fx:id="colDate" prefWidth="140.0" text="Date" />
+                                        <TableColumn fx:id="colTime" prefWidth="133.0" text="Time" />
+                                        <TableColumn fx:id="colAnimalID" prefWidth="146.0" text="Animal ID" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            <Tab text="Adoptions">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextArea fx:id="ta_adoptionRecord" layoutX="17.0" layoutY="39.0" prefHeight="186.0" prefWidth="566.0" />
+                        <Label layoutX="17.0" layoutY="14.0" prefHeight="18.0" prefWidth="116.0" text="Adoption Record" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
             </tabs>
         </TabPane>
     </children>

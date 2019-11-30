@@ -1,21 +1,15 @@
 package sample;
 
-public abstract class AnimalType implements Animal {
+abstract class AnimalType implements Animal {
     private Species species;
-    private Breeds breeds;
+    private String breeds;
     private String petName;
     private String animalID;
 
-    public AnimalType(Species species, Breeds breeds, String petName, String animalID) {
+    AnimalType(Species species, String breeds, String petName, String animalID) {
         this.species = species;
         this.breeds = breeds;
         this.petName = petName;
-        this.animalID = animalID;
-    }
-
-    public AnimalType(Species species, Breeds breeds, String animalID) {
-        this.species = species;
-        this.breeds = breeds;
         this.animalID = animalID;
     }
 
@@ -28,11 +22,11 @@ public abstract class AnimalType implements Animal {
         this.species = species;
     }
 
-    public Breeds getBreeds() {
+    public String getBreeds() {
         return breeds;
     }
 
-    public void setBreeds(Breeds breeds) {
+    public void setBreeds(String breeds) {
         this.breeds = breeds;
     }
 
@@ -49,13 +43,13 @@ public abstract class AnimalType implements Animal {
         return animalID;
     }
 
-    //  @Override
+    @Override
     public void setAnimalID(String animalID) {
         this.animalID = animalID;
     }
 
     @Override
     public String toString() {
-        return " Specie: " + species + "\n Breed: " + breeds + "\n Pet Name:" + petName + "\n Animal ID:" + animalID;
+        return "Specie: " + species + "Breed: " + breeds + "Pet Name:" + petName + "Animal ID:" + animalID;
     }
 }
