@@ -2,11 +2,11 @@ package sample;
 
 abstract class AnimalType implements Animal {
     private Species species;
-    private Breeds breeds;
+    private String breeds;
     private String petName;
     private String animalID;
 
-    AnimalType(Species species, Breeds breeds, String petName, String animalID) {
+    AnimalType(Species species, String breeds, String petName, String animalID) {
         this.species = species;
         this.breeds = breeds;
         this.petName = petName;
@@ -22,11 +22,11 @@ abstract class AnimalType implements Animal {
         this.species = species;
     }
 
-    public Breeds getBreeds() {
+    public String getBreeds() {
         return breeds;
     }
 
-    public void setBreeds(Breeds breeds) {
+    public void setBreeds(String breeds) {
         this.breeds = breeds;
     }
 
