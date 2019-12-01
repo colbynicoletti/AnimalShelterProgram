@@ -1,19 +1,19 @@
 package sample;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
+        import javafx.collections.FXCollections;
+        import javafx.collections.ObservableList;
+        import javafx.event.ActionEvent;
+        import javafx.fxml.FXML;
+        import javafx.fxml.FXMLLoader;
+        import javafx.scene.Node;
+        import javafx.scene.Parent;
+        import javafx.scene.Scene;
+        import javafx.scene.control.*;
+        import javafx.scene.input.MouseEvent;
+        import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.util.ArrayList;
+        import java.io.IOException;
+        import java.util.ArrayList;
 
 public class Customer_Controller {
 
@@ -21,7 +21,7 @@ public class Customer_Controller {
     private ChoiceBox<Species> speciesChoice;
 
     @FXML
-    private ChoiceBox<String> breedChoice;
+    private ChoiceBox<Breeds> breedChoice;
 
     @FXML
     private ChoiceBox<String> idChoice;
@@ -53,7 +53,7 @@ public class Customer_Controller {
 
     public void initialize() {
         initializeChoiceBox();
-        //initializeChoiceBox1();
+        initializeChoiceBox1();
         initializeChoiceBox2();
         //initializeComboBox3();
     }
@@ -64,10 +64,10 @@ public class Customer_Controller {
         speciesChoice.getSelectionModel().selectFirst();
 
     }
-//    private void initializeChoiceBox1() {
-//        breedChoice.getItems().addAll(Breeds.values());
-//        breedChoice.getSelectionModel().selectFirst();
-//    }
+    private void initializeChoiceBox1() {
+        breedChoice.getItems().addAll(Breeds.values());
+        breedChoice.getSelectionModel().selectFirst();
+    }
 
     private void initializeChoiceBox2() {
 
@@ -87,7 +87,7 @@ public class Customer_Controller {
     @FXML
     void adoptButton(ActionEvent event) {
 
-       // selectedAnimal.appendText(String.valueOf(displayAnimal.getSelectionModel().getSelectedItem()));
+        // selectedAnimal.appendText(String.valueOf(displayAnimal.getSelectionModel().getSelectedItem()));
 
     }
 
@@ -120,3 +120,4 @@ public class Customer_Controller {
         appStage.show();
     }
 }
+
