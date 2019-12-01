@@ -12,6 +12,9 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.sql.*;
+import java.time.LocalDate;
+
 import java.io.IOException;
 
 public class Customer_Controller {
@@ -25,19 +28,24 @@ public class Customer_Controller {
     @FXML
     private ComboBox<String> idCombo;
     @FXML
-    private ListView<AnimalType> displayAnimal;
+    private ListView<String> displayAnimal;
     @FXML
     private ComboBox<String> cb_dateTime;
     @FXML
-    private Button btn_donate;
+    private ComboBox<String> genderCombo;
+
     @FXML
-    private Button goBack1;
+    private ComboBox<String> spaNeuCombo;
+
     @FXML
-    private Button goBack2;
+    private ComboBox<String> ageCombo;
+
     @FXML
     private TextField numberField;
     @FXML
     private TextField nameField;
+    @FXML
+    private TextField timeField;
     @FXML
     private TextArea selectedAnimal;
 
@@ -53,19 +61,21 @@ public class Customer_Controller {
     private ObservableList<String> catBreeds = FXCollections.observableArrayList("Persion Cat", "Russian Blue", "Bengal Cat", "British Shorthair", "Munchkin", "Siamese Cat", "Ragdoll", "Other");
     private ObservableList<String> monkeyBreeds = FXCollections.observableArrayList("Capuchin", "Guenon", "Macaque", "Tamarin", "Marmosets", "Other");
     private ObservableList<String> rabbitBreeds = FXCollections.observableArrayList("Holland Lop", "Netherland Dwarf", "Flemish Giant", "Lionhead", "Rex", "Angora", "Other");
+    private ObservableList<String> dataAge = FXCollections.observableArrayList("Any age", "Adult", "Senior", "Young Adult");
+    private ObservableList<String> dataGender = FXCollections.observableArrayList("Any Gender", "Female", "Male");
+    private ObservableList<String> dataSorN = FXCollections.observableArrayList("Spayed", "Neutered");
 
+    private Connection conn;
+    private Statement stmt;
 
     public void initialize() {
-        //initializeChoiceBox();
-        //initializeChoiceBox1();
         initializeChoiceBox2();
-        //initializeComboBox3();
-        //speciesChoice();
         speciesCombo.setValue("Species");
         speciesCombo.setItems(animalSpecies);
-        breedCombo.setValue("Select Species");
-
-
+        breedCombo.setValue("Breed");
+        ageCombo.setItems(dataAge);
+        genderCombo.setItems(dataGender);
+        spaNeuCombo.setItems(dataSorN);
     }
 
     @FXML
@@ -87,53 +97,80 @@ public class Customer_Controller {
             System.out.println("Error");
         }
     }
-//    private void initializeChoiceBox() {
-//
-//        speciesCombo.getItems().addAll(Species.values());
-//        speciesCombo.getSelectionModel().selectFirst();
-//
-//    }
-//
-//    private void initializeChoiceBox1() {
-//        breedCombo.getItems().addAll(Breeds.values());
-//        breedCombo.getSelectionModel().selectFirst();
-//    }
 
     private void initializeChoiceBox2() {
 
         ObservableList<String> data = idCombo.getItems(); // Get item value input
 
         //data.clear();
-        data.add("DO12");
-        data.add("DO34");
         data.add("CA12");
         data.add("CA34");
-        data.add("A12");
+        data.add("DO12");
+        data.add("DO34");
+        data.add("MO12");
+        data.add("MO34");
+        data.add("RA12");
+        data.add("RA34");
 //
         idCombo.getSelectionModel().selectFirst();
     }
 
 
     @FXML
-    void adoptButton(ActionEvent event) {
-        System.out.println("Adopted");
-        // selectedAnimal.appendText(String.valueOf(displayAnimal.getSelectionModel().getSelectedItem()));
+    void adoptButton(ActionEvent event) throws SQLException {
 
+        displayAnimal.getItems().add(speciesCombo.getValue() + "\n" + breedCombo.getValue() + "\n" + idCombo.getValue() + "\n" + ageCombo.getValue() + "\n" + genderCombo.getValue() + "\n" + spaNeuCombo.getValue());
+
+        System.out.println("Adopted");
+        selectedAnimal.appendText(speciesCombo.getValue() + "\n" + breedCombo.getValue() + "\n" + idCombo.getValue() + "\n" + ageCombo.getValue() + "\n" + genderCombo.getValue() + "\n" + spaNeuCombo.getValue());
+
+        loadAnimal();
+    }
+
+    @FXML
+    void loadAnimal() throws SQLException {
+        String breed = breedCombo.getValue();
+        String animalid = idCombo.getValue();
+        String specie = speciesCombo.getValue();
+        String animalQuery = "INSERT INTO ANIMALS (SPECIES, BREED, PETNAME, ANIMALID) VALUES(?, ?, ?, ?)";
+        PreparedStatement animalDB = conn.prepareStatement(animalQuery);
+        animalDB.setString(1, specie);
+        animalDB.setString(2, breed);
+        animalDB.setString(4, animalid);
+        animalDB.executeUpdate();
     }
 
 
     @FXML
-    void submitAppointment(ActionEvent event) {
+    void submitAppointment(ActionEvent event) throws SQLException {
         System.out.println("Thank you for your interest in Adopting");
         System.out.println("Below is your appointment information");
         System.out.println(nameField.getText());
         System.out.println(numberField.getText());
-        System.out.println(displayAnimal.getSelectionModel().getSelectedItem());
-//        System.out.println(dateAndTime.getValue());
-
-
+        System.out.println("Date and time: ");
+        System.out.println(dateAndTime.getValue());
+        System.out.println(timeField.getText());
+//        System.out.println("Animal for adoption: ");
+//        selectedAnimal.appendText(speciesCombo.getValue() + "\n" + breedCombo.getValue() + "\n" + idCombo.getValue() + "\n" + ageCombo.getValue() + "\n" + genderCombo.getValue() + "\n" + spaNeuCombo.getValue());
+        loadAdoption();
     }
+    @FXML
+    void loadAdoption() throws SQLException {
 
+        String name = nameField.getText();
+        String animalid = idCombo.getValue();
+        LocalDate date = dateAndTime.getValue();
+        String time = timeField.getText();
+        String phone = numberField.getText();
+        String adoptionQuery = "INSERT INTO ADOPTION_TABLE (ANIMAL_ID, CUSTOMER_NAME, PHONE_NUMBER, DATE, TIME) VALUES(?, ?, ?, ?, ?)";
+        PreparedStatement adoptionDB = conn.prepareStatement(adoptionQuery);
+        adoptionDB.setString(1, animalid);
+        adoptionDB.setString(2, name);
+        adoptionDB.setString(3, phone);
+        adoptionDB.setString(4, String.valueOf(date));
+        adoptionDB.setString(5, time);
+        adoptionDB.executeUpdate();
+    }
     @FXML
     void donateBtn(ActionEvent event) {
         donationTxtArea.appendText("THANK YOU FOR YOUR DONATION OF: \n");

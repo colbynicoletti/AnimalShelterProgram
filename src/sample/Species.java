@@ -5,7 +5,8 @@ public enum Species {
     Dogs,
     Rabbits,
     Monkeys,
-    Ferrets;
+    Ferrets
+
 }
 
 
