@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -22,13 +22,13 @@
                             <children>
                                 <Button fx:id="btn_adopt" layoutX="440.0" layoutY="308.0" mnemonicParsing="false" onAction="#adoptButton" prefHeight="25.0" prefWidth="138.0" text="Adopt" />
                                 <Button fx:id="goBack1" layoutX="53.0" layoutY="307.0" mnemonicParsing="false" onMouseClicked="#previous" prefHeight="26.0" prefWidth="106.0" text="Previous Page" />
-                                <ChoiceBox fx:id="speciesChoice" layoutX="31.0" layoutY="215.0" prefWidth="150.0" />
-                                <ChoiceBox fx:id="breedChoice" layoutX="225.0" layoutY="215.0" prefWidth="150.0" />
-                                <ChoiceBox fx:id="idChoice" layoutX="428.0" layoutY="215.0" prefWidth="150.0" />
-                                <Label layoutX="41.0" layoutY="242.0" prefHeight="17.0" prefWidth="118.0" text="Select Species" />
-                                <Label layoutX="258.0" layoutY="242.0" text="Select Breed" />
+                                <Label layoutX="35.0" layoutY="242.0" prefHeight="17.0" prefWidth="118.0" text="Select Species" />
+                                <Label layoutX="266.0" layoutY="242.0" text="Select Breed" />
                                 <Label layoutX="476.0" layoutY="242.0" text="Select ID" />
-                                <ListView fx:id="displayAnimal" layoutX="16.0" layoutY="35.0" prefHeight="162.0" prefWidth="537.0" />
+                                <ListView fx:id="displayAnimal" layoutX="19.0" layoutY="35.0" prefHeight="160.0" prefWidth="560.0" />
+                        <ComboBox fx:id="speciesCombo" layoutX="20.0" layoutY="215.0" onAction="#breedChoice" prefWidth="150.0" />
+                        <ComboBox fx:id="breedCombo" layoutX="225.0" layoutY="215.0" prefWidth="150.0" />
+                        <ComboBox fx:id="idCombo" layoutX="425.0" layoutY="215.0" prefWidth="150.0" />
                             </children>
                         </AnchorPane>
                     </content>
