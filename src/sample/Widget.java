@@ -28,4 +28,6 @@ public class Widget extends AnimalType {
     public String getName() {
         return null;
     }
+
 }
+
