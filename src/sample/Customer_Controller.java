@@ -124,21 +124,21 @@ public class Customer_Controller {
         System.out.println("Adopted");
         selectedAnimal.appendText(speciesCombo.getValue() + "\n" + breedCombo.getValue() + "\n" + idCombo.getValue() + "\n" + ageCombo.getValue() + "\n" + genderCombo.getValue() + "\n" + spaNeuCombo.getValue());
 
-        loadAnimal();
+        //loadAnimal();
     }
 
-    @FXML
-    void loadAnimal() throws SQLException {
-        String breed = breedCombo.getValue();
-        String animalid = idCombo.getValue();
-        String specie = speciesCombo.getValue();
-        String animalQuery = "INSERT INTO ANIMALS (SPECIES, BREED, PETNAME, ANIMALID) VALUES(?, ?, ?, ?)";
-        PreparedStatement animalDB = conn.prepareStatement(animalQuery);
-        animalDB.setString(1, specie);
-        animalDB.setString(2, breed);
-        animalDB.setString(4, animalid);
-        animalDB.executeUpdate();
-    }
+//    @FXML
+//    void loadAnimal() throws SQLException {
+//        String breed = breedCombo.getValue();
+//        String animalid = idCombo.getValue();
+//        String specie = speciesCombo.getValue();
+//        String animalQuery = "INSERT INTO ANIMALS (SPECIES, BREED, PETNAME, ANIMALID) VALUES(?, ?, ?, ?)";
+//        PreparedStatement animalDB = conn.prepareStatement(animalQuery);
+//        animalDB.setString(1, specie);
+//        animalDB.setString(2, breed);
+//        animalDB.setString(4, animalid);
+//        animalDB.executeUpdate();
+//    }
 
 
     @FXML
