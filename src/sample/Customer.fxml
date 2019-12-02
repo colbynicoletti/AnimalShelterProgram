@@ -4,9 +4,10 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -20,21 +21,21 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <Button fx:id="btn_adopt" layoutX="440.0" layoutY="308.0" mnemonicParsing="false" onAction="#adoptButton" prefHeight="25.0" prefWidth="138.0" text="Adopt" />
-                                <Button fx:id="goBack1" layoutX="53.0" layoutY="307.0" mnemonicParsing="false" onMouseClicked="#previous" prefHeight="26.0" prefWidth="106.0" text="Previous Page" />
-                                <Label layoutX="77.0" layoutY="211.0" prefHeight="17.0" prefWidth="118.0" text="Species" />
-                                <Label layoutX="77.0" layoutY="264.0" text="Breed" />
-                                <Label layoutX="494.0" layoutY="264.0" text="ID" />
-                                <ListView fx:id="displayAnimal" layoutX="19.0" layoutY="8.0" prefHeight="156.0" prefWidth="560.0" />
-                        <ComboBox fx:id="speciesCombo" layoutX="19.0" layoutY="186.0" onAction="#breedChoice" prefWidth="150.0" />
-                        <ComboBox fx:id="breedCombo" layoutX="19.0" layoutY="235.0" prefWidth="150.0" />
-                        <ComboBox fx:id="idCombo" layoutX="428.0" layoutY="235.0" prefWidth="150.0" />
-                        <ComboBox fx:id="genderCombo" layoutX="225.0" layoutY="186.0" prefWidth="150.0" />
-                        <ComboBox fx:id="spaNeuCombo" layoutX="225.0" layoutY="235.0" prefWidth="150.0" />
-                        <Label layoutX="280.0" layoutY="211.0" text="Gender" />
-                        <Label layoutX="247.0" layoutY="264.0" text="Spayed or Neutered" />
-                        <ComboBox fx:id="ageCombo" layoutX="428.0" layoutY="186.0" prefWidth="150.0" />
-                        <Label layoutX="489.0" layoutY="211.0" text="Age" />
+                                <Button fx:id="btn_adopt" layoutX="320.0" layoutY="320.0" mnemonicParsing="false" onAction="#adoptButton" prefHeight="25.0" prefWidth="150.0" text="Adopt" />
+                                <Button fx:id="goBack1" layoutX="120.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#previous" prefHeight="26.0" prefWidth="150.0" text="Previous Page" />
+                                <Label layoutX="52.0" layoutY="252.0" prefHeight="17.0" prefWidth="100.0" text="Search by Species" />
+                                <Label layoutX="241.0" layoutY="252.0" text="Search by Breed" />
+                        <ComboBox fx:id="speciesCombo" layoutX="20.0" layoutY="270.0" onAction="#breedChoice" prefWidth="150.0" />
+                        <ComboBox fx:id="breedCombo" layoutX="220.0" layoutY="270.0" prefWidth="150.0" />
+                        <Button fx:id="btn_search" layoutX="420.0" layoutY="270.0" mnemonicParsing="false" prefWidth="150.0" text="Search" />
+                        <TableView fx:id="tv_animalAdopt" layoutX="20.0" layoutY="25.0" prefHeight="216.0" prefWidth="560.0">
+                          <columns>
+                            <TableColumn fx:id="tbc_species" prefWidth="140.0" text="Species" />
+                            <TableColumn fx:id="tbc_breed" prefWidth="140.0" text="Breed" />
+                              <TableColumn fx:id="tbv_petName" prefWidth="140.0" text="Pet Name" />
+                              <TableColumn fx:id="tbc_animalID" minWidth="0.0" prefWidth="140.0" text="Pet ID" />
+                          </columns>
+                        </TableView>
                             </children>
                         </AnchorPane>
                     </content>

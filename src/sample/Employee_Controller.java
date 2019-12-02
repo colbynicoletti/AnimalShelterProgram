@@ -77,7 +77,7 @@ public class Employee_Controller extends Main {
     @FXML
     private ComboBox<String> cb_time;
 
-    private ObservableList<AnimalType> animalObservableList = FXCollections.observableArrayList();
+    public ObservableList<AnimalType> animalObservableList = FXCollections.observableArrayList();
     private ObservableList<Events> eventsObservableList;
 
 

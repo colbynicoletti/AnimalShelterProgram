@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -17,7 +18,7 @@ import java.time.LocalDate;
 
 import java.io.IOException;
 
-public class Customer_Controller {
+public class Customer_Controller extends Employee_Controller {
 
     @FXML
     private ComboBox<String> speciesCombo;
@@ -55,27 +56,39 @@ public class Customer_Controller {
     private TextField amountField;
     @FXML
     private DatePicker dateAndTime;
+    @FXML
+    private TableColumn<?, ?> tbc_species;
+
+    @FXML
+    private TableColumn<?, ?> tbc_breed;
+
+    @FXML
+    private TableColumn<?, ?> tbv_petName;
+
+    @FXML
+    private TableColumn<?, ?> tbc_animalID;
+    @FXML
+    private Button btn_search;
+    @FXML
+    private TableView<AnimalType> tv_animalAdopt;
 
     private ObservableList<String> animalSpecies = FXCollections.observableArrayList("Dogs", "Cats", "Monkey", "Rabbit");
-    private ObservableList<String> dogBreeds = FXCollections.observableArrayList("Husky", "Chihuahua", "Beagle", "Pug", "Boston Terrier", "GreyHound", "Pomeranian", "Maltese", "Poodle", "Other");
-    private ObservableList<String> catBreeds = FXCollections.observableArrayList("Persion Cat", "Russian Blue", "Bengal Cat", "British Shorthair", "Munchkin", "Siamese Cat", "Ragdoll", "Other");
+    private ObservableList<String> dogBreeds = FXCollections.observableArrayList("Husky", "Chihuahua", "Beagle", "Pug", "Boston Terrier", "GreyHound", "Pomeranian", "Maltese", "Poodle", "Mix");
+    private ObservableList<String> catBreeds = FXCollections.observableArrayList("Persion Cat", "Russian Blue", "Bengal Cat", "British Shorthair", "Munchkin", "Siamese Cat", "Ragdoll", "Mix");
     private ObservableList<String> monkeyBreeds = FXCollections.observableArrayList("Capuchin", "Guenon", "Macaque", "Tamarin", "Marmosets", "Other");
     private ObservableList<String> rabbitBreeds = FXCollections.observableArrayList("Holland Lop", "Netherland Dwarf", "Flemish Giant", "Lionhead", "Rex", "Angora", "Other");
-    private ObservableList<String> dataAge = FXCollections.observableArrayList("Any age", "Adult", "Senior", "Young Adult");
-    private ObservableList<String> dataGender = FXCollections.observableArrayList("Any Gender", "Female", "Male");
-    private ObservableList<String> dataSorN = FXCollections.observableArrayList("Spayed", "Neutered");
+
 
     private Connection conn;
     private Statement stmt;
 
     public void initialize() {
-        initializeChoiceBox2();
+//        initializeChoiceBox2();
+        populateAdoptTable();
         speciesCombo.setValue("Species");
         speciesCombo.setItems(animalSpecies);
         breedCombo.setValue("Breed");
-        ageCombo.setItems(dataAge);
-        genderCombo.setItems(dataGender);
-        spaNeuCombo.setItems(dataSorN);
+
     }
 
     @FXML
@@ -98,33 +111,29 @@ public class Customer_Controller {
         }
     }
 
-    private void initializeChoiceBox2() {
-
-        ObservableList<String> data = idCombo.getItems(); // Get item value input
-
-        //data.clear();
-        data.add("CA12");
-        data.add("CA34");
-        data.add("DO12");
-        data.add("DO34");
-        data.add("MO12");
-        data.add("MO34");
-        data.add("RA12");
-        data.add("RA34");
+//    private void initializeChoiceBox2() {
 //
-        idCombo.getSelectionModel().selectFirst();
-    }
+//        ObservableList<String> data = idCombo.getItems(); // Get item value input
+//
+//        //data.clear();
+//        data.add("CA12");
+//        data.add("CA34");
+//        data.add("DO12");
+//        data.add("DO34");
+//        data.add("MO12");
+//        data.add("MO34");
+//        data.add("RA12");
+//        data.add("RA34");
+////
+//        idCombo.getSelectionModel().selectFirst();
+//    }
 
 
     @FXML
     void adoptButton(ActionEvent event) throws SQLException {
-
-        displayAnimal.getItems().add(speciesCombo.getValue() + "\n" + breedCombo.getValue() + "\n" + idCombo.getValue() + "\n" + ageCombo.getValue() + "\n" + genderCombo.getValue() + "\n" + spaNeuCombo.getValue());
-
         System.out.println("Adopted");
-        selectedAnimal.appendText(speciesCombo.getValue() + "\n" + breedCombo.getValue() + "\n" + idCombo.getValue() + "\n" + ageCombo.getValue() + "\n" + genderCombo.getValue() + "\n" + spaNeuCombo.getValue());
-
-        //loadAnimal();
+        AnimalType am = tv_animalAdopt.getSelectionModel().getSelectedItem();
+        selectedAnimal.setText(am.toString());
     }
 
 //    @FXML
@@ -154,23 +163,25 @@ public class Customer_Controller {
 //        selectedAnimal.appendText(speciesCombo.getValue() + "\n" + breedCombo.getValue() + "\n" + idCombo.getValue() + "\n" + ageCombo.getValue() + "\n" + genderCombo.getValue() + "\n" + spaNeuCombo.getValue());
         loadAdoption();
     }
+
     @FXML
     void loadAdoption() throws SQLException {
-
+        AnimalType am = tv_animalAdopt.getSelectionModel().getSelectedItem();
         String name = nameField.getText();
-        String animalid = idCombo.getValue();
+        String animalID = am.getAnimalID();
         LocalDate date = dateAndTime.getValue();
         String time = timeField.getText();
         String phone = numberField.getText();
         String adoptionQuery = "INSERT INTO ADOPTION_TABLE (ANIMAL_ID, CUSTOMER_NAME, PHONE_NUMBER, DATE, TIME) VALUES(?, ?, ?, ?, ?)";
-        PreparedStatement adoptionDB = conn.prepareStatement(adoptionQuery);
-        adoptionDB.setString(1, animalid);
+        PreparedStatement adoptionDB = Login_Controller.conn.prepareStatement(adoptionQuery);
+        adoptionDB.setString(1, animalID);
         adoptionDB.setString(2, name);
         adoptionDB.setString(3, phone);
         adoptionDB.setString(4, String.valueOf(date));
         adoptionDB.setString(5, time);
         adoptionDB.executeUpdate();
     }
+
     @FXML
     void donateBtn(ActionEvent event) {
         donationTxtArea.appendText("THANK YOU FOR YOUR DONATION OF: \n");
@@ -178,6 +189,33 @@ public class Customer_Controller {
         donationTxtArea.appendText("Have a good day");
 
     }
+
+    void populateAdoptTable() {
+        ObservableList<String> animalList = FXCollections.observableArrayList();
+
+        tbc_species.setCellValueFactory(new PropertyValueFactory<>("species"));
+        tbc_breed.setCellValueFactory(new PropertyValueFactory<>("breeds"));
+        tbv_petName.setCellValueFactory(new PropertyValueFactory<>("petName"));
+        tbc_animalID.setCellValueFactory(new PropertyValueFactory<>("animalID"));
+        tv_animalAdopt.setItems(animalObservableList);
+        try {
+            String sql = "SELECT * FROM ANIMALS";
+            ResultSet rs = Login_Controller.stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                // these lines correspond to the database table columns
+                animalObservableList.add(
+                        new Widget(Species.valueOf(rs.getString("species")), rs.getString("breed"), rs.getString("petName"), rs.getString("animalID")));
+
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+//
+
 
     public void previous(MouseEvent event) throws IOException {
         Parent newRoot = FXMLLoader.load(getClass().getResource("login.fxml"));
