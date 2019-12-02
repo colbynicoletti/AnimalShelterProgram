@@ -13,9 +13,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalTime;
+import java.time.temporal.TemporalAccessor;
 import java.util.Random;
 
 public class Employee_Controller extends Main {
@@ -25,6 +25,18 @@ public class Employee_Controller extends Main {
 
     @FXML
     public Button btn_generateId;
+
+    @FXML
+    public Label lbl_dateFormatE;
+
+    @FXML
+    public Button btn_submitEvent;
+
+    @FXML
+    public ChoiceBox<EventList> ch_event;
+
+    @FXML
+    public DatePicker datePicker;
 
     @FXML
     private ChoiceBox<Species> ch_species;
@@ -45,9 +57,6 @@ public class Employee_Controller extends Main {
     private Button goBack2;
 
     @FXML
-    private ComboBox<?> cb_event;
-
-    @FXML
     private TableColumn<?, ?> colEvent;
 
     @FXML
@@ -60,36 +69,42 @@ public class Employee_Controller extends Main {
     private TableColumn<?, ?> colAnimalID;
 
     @FXML
-    private TableView<AnimalType> tvDisplay;
+    private TableView<Events> tvDisplay;
 
     @FXML
     private ListView<AnimalType> lv_displayAnimal;
 
     @FXML
-    private TextField tf_eventDate;
+    private ComboBox<String> cb_time;
 
-    @FXML
-    private ComboBox<?> cb_time;
-
-    private ObservableList<AnimalType> observableAnimal;
+    private ObservableList<AnimalType> animalObservableList = FXCollections.observableArrayList();
+    private ObservableList<Events> eventsObservableList;
 
 
     public void initialize() throws SQLException {
+        populateEvents();
+        populateTime();
         setupTableView();
+        setTvDisplay();
         populateSpeciesCb();
         addToObservableList();
-        btn_checkIn.setOnAction(this::handleButtonAction);
+        btn_checkIn.setOnMouseClicked(this::addToAnimalTable);
+        btn_submitEvent.setOnMouseClicked(this::addEvent);
     }
 
+    private void populateSpeciesCb() {
+        ch_species.getItems().addAll(Species.Dogs);
+        ch_species.getItems().addAll(Species.Cats);
+    }
 
-    private void handleButtonAction(javafx.event.ActionEvent actionEvent) {
+    private void addToAnimalTable(MouseEvent event) {
         Species species = ch_species.getValue();
         String breeds = tf_breed.getText();
         String petName = tf_petName.getText();
         String animalID = tf_animalID.getText();
         try {
-            String productQuery = "INSERT INTO ANIMALS(SPECIES,BREED,PETNAME,ANIMALID) VALUES (?,?,?,?)";
-            PreparedStatement addAnimal = Login_Controller.conn.prepareStatement(productQuery);
+            String animalQuery = "INSERT INTO ANIMALS(SPECIES,BREED,PETNAME,ANIMALID) VALUES (?,?,?,?)";
+            PreparedStatement addAnimal = Login_Controller.conn.prepareStatement(animalQuery);
             addAnimal.setString(1, species.toString());
             addAnimal.setString(2, breeds);
             addAnimal.setString(3, petName);
@@ -100,13 +115,13 @@ public class Employee_Controller extends Main {
             tf_breed.clear();
             tf_petName.clear();
             tf_animalID.clear();
-            observableAnimal.clear();
+            animalObservableList.clear();
             addToObservableList();
+            addAnimal.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
-    } //end check in animal button
+    }
 
     public void addToObservableList() throws SQLException {
         String sql = "SELECT * FROM ANIMALS";
@@ -120,38 +135,73 @@ public class Employee_Controller extends Main {
             // create object
             AnimalType animalFromDB = new Widget(species, breed, petName, animalId);
             // save to observable list
-            observableAnimal.add(animalFromDB);
+            animalObservableList.add(animalFromDB);
             lv_displayAnimal.getItems().clear();
-            for (AnimalType  animal : observableAnimal) {
-                lv_displayAnimal.getItems().add(animal);
-            }
+            setLv_displayAnimal();
+        }
+        rs.close();
+    }
+    public void setLv_displayAnimal(){
+        for (AnimalType animal : animalObservableList) {
+            lv_displayAnimal.getItems().add(animal);
         }
     }
 
-    private void populateSpeciesCb() {
-        ch_species.getItems().addAll(Species.Dogs);
-        ch_species.getItems().addAll(Species.Cats);
-        ch_species.getItems().addAll(Species.Rabbits);
-        ch_species.getItems().addAll(Species.Monkeys);
-        ch_species.getItems().addAll(Species.Ferrets);
+    private void addEvent(MouseEvent event) {
+        String animalId = lv_displayAnimal.getSelectionModel().getSelectedItem().getAnimalID();
+        EventList events = ch_event.getSelectionModel().getSelectedItem();
+        String date = datePicker.getValue().toString();
+        String time = cb_time.getSelectionModel().getSelectedItem().toString();
+        try {
+            String adoptionQuery = "INSERT INTO EVENT(ANIMAL_ID, EVENTS, DATE, TIME) VALUES (?,?,?,?)";
+            PreparedStatement addEvent = Login_Controller.conn.prepareStatement(adoptionQuery);
+            addEvent.setString(1, animalId);
+            addEvent.setString(2, events.toString());
+            addEvent.setString(3, date);
+            addEvent.setString(4, time);
+            addEvent.executeUpdate();
 
+            eventsObservableList.clear();
+            setTvDisplay();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-//    private void cb_breed() {
-//        cb_breed.getItems().addAll(Breeds.Husky);
-//        cb_breed.getItems().addAll(Breeds.Black_Sable);
-//        cb_breed.getItems().addAll(Breeds.Capuchin);
-//        cb_breed.getItems().addAll(Breeds.French_Lop);
-//        cb_breed.getItems().addAll(Breeds.Munchkin);
-//    }
+    public void setTvDisplay() throws SQLException {
+        String sql = "SELECT * FROM EVENT";
+        ResultSet rs = Login_Controller.stmt.executeQuery(sql);
+        while (rs.next()) {
+            // these lines correspond to the database table columns
+            String animal = (rs.getString(1));
+            String events = rs.getString(2);
+            String date = rs.getString(3);
+            String time = rs.getString(4);
+            // create object
+            Events eventsFromDb = new Events(animal, events, date, time);
+            // save to observable list
+            eventsObservableList.add(eventsFromDb);
+        }
+        rs.close();
+    }
+
+    public void populateTime() {
+        for(int i = 1; i <= 24; i++) {
+            cb_time.getItems().add(i + ":" + "00 hrs");
+        }
+    }
+
+    public void populateEvents() {
+        ch_event.getItems().add(EventList.Checkup);
+    }
 
     private void setupTableView() {
-        observableAnimal = FXCollections.observableArrayList();
-        colEvent.setCellValueFactory(new PropertyValueFactory("Event"));
-        colDate.setCellValueFactory(new PropertyValueFactory("Date"));
-        colTime.setCellValueFactory(new PropertyValueFactory("Time"));
+        eventsObservableList = FXCollections.observableArrayList();
         colAnimalID.setCellValueFactory(new PropertyValueFactory("animalID"));
-        tvDisplay.setItems(observableAnimal);
+        colEvent.setCellValueFactory(new PropertyValueFactory("events"));
+        colDate.setCellValueFactory(new PropertyValueFactory("date"));
+        colTime.setCellValueFactory(new PropertyValueFactory("time"));
+        tvDisplay.setItems(eventsObservableList);
     }
 
     public void previous(MouseEvent event) throws IOException {

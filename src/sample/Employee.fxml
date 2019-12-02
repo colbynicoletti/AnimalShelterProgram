@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
@@ -43,16 +44,16 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="238.0" prefWidth="463.0">
                             <children>
-                                <Label layoutX="30.0" layoutY="38.0" text="Select Event" />
-                                <Label fx:id="lbl_dateFormatE" layoutX="115.0" layoutY="127.0" prefHeight="18.0" prefWidth="151.0" text="Date Format: (mm/dd/yyyy)" />
-                                <Label layoutX="36.0" layoutY="151.0" text="Select Date" />
-                                <Button fx:id="btn_submitEvent" layoutX="361.0" layoutY="34.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="159.0" text="Submit" />
-                                <Button fx:id="goBack2" layoutX="360.0" layoutY="146.0" mnemonicParsing="false" onMouseClicked="#previous" prefHeight="26.0" prefWidth="161.0" text="Previous Page" />
-                        <ListView fx:id="lv_displayAnimal" layoutX="9.0" layoutY="185.0" prefHeight="151.0" prefWidth="582.0" />
-                        <TextField fx:id="tf_eventDate" layoutX="116.0" layoutY="146.0" prefHeight="26.0" prefWidth="221.0" />
-                        <ComboBox fx:id="cb_time" layoutX="114.0" layoutY="80.0" prefHeight="26.0" prefWidth="224.0" />
-                        <Label layoutX="36.0" layoutY="85.0" text="Time" />
-                        <ChoiceBox fx:id="ch_event" layoutX="115.0" layoutY="34.0" prefHeight="26.0" prefWidth="224.0" />
+                                <Label layoutX="30.0" layoutY="18.0" text="Select Event" />
+                                <Label layoutX="29.0" layoutY="63.0" text="Select Date" />
+                                <Button fx:id="btn_submitEvent" layoutX="301.0" layoutY="123.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="95.0" text="Submit" />
+                                <Button fx:id="goBack2" layoutX="420.0" layoutY="123.0" mnemonicParsing="false" onMouseClicked="#previous" prefHeight="26.0" prefWidth="130.0" text="Previous Page" />
+                        <ListView fx:id="lv_displayAnimal" layoutX="9.0" layoutY="161.0" prefHeight="175.0" prefWidth="582.0" />
+                        <ComboBox fx:id="cb_time" layoutX="106.0" layoutY="103.0" prefHeight="26.0" prefWidth="94.0" />
+                        <Label layoutX="28.0" layoutY="108.0" text="Time" />
+                        <ChoiceBox fx:id="ch_event" layoutX="115.0" layoutY="14.0" prefHeight="26.0" prefWidth="209.0" />
+                        <DatePicker fx:id="datePicker" layoutX="107.0" layoutY="59.0" />
+                        <Label layoutX="15.0" layoutY="141.0" prefHeight="18.0" prefWidth="114.0" text="Animals in database" />
                             </children>
                         </AnchorPane>
                     </content>

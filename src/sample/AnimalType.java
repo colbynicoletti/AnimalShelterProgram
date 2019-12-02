@@ -50,6 +50,6 @@ abstract class AnimalType implements Animal {
 
     @Override
     public String toString() {
-        return "Specie: " + species + "Breed: " + breeds + "Pet Name:" + petName + "Animal ID:" + animalID;
+        return "Specie: " + species + "\nBreed: " + breeds + "\nPet Name: " + petName + "\nAnimal ID: " + animalID;
     }
 }
