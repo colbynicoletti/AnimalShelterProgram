@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
@@ -10,6 +10,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Customer_Controller">
     <children>
@@ -20,15 +21,20 @@
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
                                 <Button fx:id="btn_adopt" layoutX="440.0" layoutY="308.0" mnemonicParsing="false" onAction="#adoptButton" prefHeight="25.0" prefWidth="138.0" text="Adopt" />
-                                <Button fx:id="btn_search" layoutX="231.0" layoutY="288.0" mnemonicParsing="false" onAction="#searchButton" prefHeight="25.0" prefWidth="140.0" text="Search" />
                                 <Button fx:id="goBack1" layoutX="53.0" layoutY="307.0" mnemonicParsing="false" onMouseClicked="#previous" prefHeight="26.0" prefWidth="106.0" text="Previous Page" />
-                                <ChoiceBox fx:id="speciesChoice" layoutX="31.0" layoutY="215.0" prefWidth="150.0" />
-                                <ChoiceBox fx:id="breedChoice" layoutX="225.0" layoutY="215.0" prefWidth="150.0" />
-                                <ChoiceBox fx:id="idChoice" layoutX="428.0" layoutY="215.0" prefWidth="150.0" />
-                                <Label layoutX="41.0" layoutY="242.0" prefHeight="17.0" prefWidth="118.0" text="Search by Species" />
-                                <Label layoutX="258.0" layoutY="242.0" text="Search by Breed" />
-                                <Label layoutX="476.0" layoutY="242.0" text="Search by ID" />
-                                <ListView fx:id="displayAnimal" layoutX="16.0" layoutY="35.0" prefHeight="162.0" prefWidth="537.0" />
+                                <Label layoutX="77.0" layoutY="211.0" prefHeight="17.0" prefWidth="118.0" text="Species" />
+                                <Label layoutX="77.0" layoutY="264.0" text="Breed" />
+                                <Label layoutX="494.0" layoutY="264.0" text="ID" />
+                                <ListView fx:id="displayAnimal" layoutX="19.0" layoutY="8.0" prefHeight="156.0" prefWidth="560.0" />
+                        <ComboBox fx:id="speciesCombo" layoutX="19.0" layoutY="186.0" onAction="#breedChoice" prefWidth="150.0" />
+                        <ComboBox fx:id="breedCombo" layoutX="19.0" layoutY="235.0" prefWidth="150.0" />
+                        <ComboBox fx:id="idCombo" layoutX="428.0" layoutY="235.0" prefWidth="150.0" />
+                        <ComboBox fx:id="genderCombo" layoutX="225.0" layoutY="186.0" prefWidth="150.0" />
+                        <ComboBox fx:id="spaNeuCombo" layoutX="225.0" layoutY="235.0" prefWidth="150.0" />
+                        <Label layoutX="280.0" layoutY="211.0" text="Gender" />
+                        <Label layoutX="247.0" layoutY="264.0" text="Spayed or Neutered" />
+                        <ComboBox fx:id="ageCombo" layoutX="428.0" layoutY="186.0" prefWidth="150.0" />
+                        <Label layoutX="489.0" layoutY="211.0" text="Age" />
                             </children>
                         </AnchorPane>
                     </content>
@@ -39,20 +45,33 @@
                             <children>
                                 <Label layoutX="417.0" layoutY="14.0" prefHeight="26.0" prefWidth="43.0" text="Name:" />
                                 <Label layoutX="417.0" layoutY="83.0" prefHeight="23.0" prefWidth="95.0" text="Phone Number:" />
-                                <Label layoutX="417.0" layoutY="152.0" prefHeight="24.0" prefWidth="107.0" text="Select Date/Time:" />
-                                <ComboBox fx:id="cb_dateTime" layoutX="420.0" layoutY="186.0" prefHeight="25.0" prefWidth="137.0" />
-                                <TextField fx:id="numberField" layoutX="417.0" layoutY="113.0" prefHeight="25.0" prefWidth="121.0" />
+                                <Label layoutX="420.0" layoutY="205.0" prefHeight="24.0" prefWidth="116.0" text="Select Date(Mon-Fri):" />
+                                <TextField fx:id="numberField" layoutX="417.0" layoutY="113.0" prefHeight="25.0" prefWidth="143.0" />
                                 <TextField fx:id="nameField" layoutX="417.0" layoutY="49.0" prefHeight="26.0" prefWidth="142.0" />
                                 <Button fx:id="btn_Appointment" layoutX="366.0" layoutY="317.0" mnemonicParsing="false" onAction="#submitAppointment" prefHeight="25.0" prefWidth="188.0" text="Submit Appointment" />
                                 <Button fx:id="goBack2" layoutX="48.0" layoutY="316.0" mnemonicParsing="false" onMouseClicked="#previous" prefHeight="26.0" prefWidth="110.0" text="Previous Page" />
                                 <TextArea fx:id="selectedAnimal" layoutX="26.0" layoutY="26.0" prefHeight="222.0" prefWidth="324.0" />
+                                <DatePicker fx:id="dateAndTime" layoutX="417.0" layoutY="236.0" />
+                        <TextField fx:id="timeField" layoutX="418.0" layoutY="173.0" prefHeight="25.0" prefWidth="145.0" />
+                        <Label layoutX="417.0" layoutY="148.0" text="Enter time(8am-5pm)" />
                             </children>
                         </AnchorPane>
                     </content>
                 </Tab>
                 <Tab text="Donate">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <TextField fx:id="amountField" layoutX="25.0" layoutY="161.0" />
+                                <TextArea fx:id="donationTxtArea" layoutX="141.0" layoutY="220.0" prefHeight="137.0" prefWidth="299.0" />
+                                <Label layoutX="56.0" layoutY="14.0" prefHeight="35.0" prefWidth="488.0" text="PLEASE DONATE TO SUPPORT OUR SHELTER" textFill="#000000c2">
+                                    <font>
+                                        <Font size="24.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="25.0" layoutY="135.0" text="Enter amount" />
+                                <Button fx:id="donateButton" layoutX="408.0" layoutY="161.0" mnemonicParsing="false" onAction="#donateBtn" prefHeight="25.0" prefWidth="105.0" text="Donate" />
+                            </children></AnchorPane>
                     </content>
                 </Tab>
             </tabs>
