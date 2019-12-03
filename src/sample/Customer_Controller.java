@@ -11,8 +11,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import java.awt.Desktop;
+import java.net.URI;
 
+import java.net.URISyntaxException;
 import java.sql.*;
 import java.time.LocalDate;
 
@@ -22,7 +27,6 @@ public class Customer_Controller extends Employee_Controller {
 
     @FXML
     private ComboBox<String> speciesCombo;
-
     @FXML
     private ComboBox<String> breedCombo;
     @FXML
@@ -31,28 +35,22 @@ public class Customer_Controller extends Employee_Controller {
     private TextField nameField;
     @FXML
     private TextArea selectedAnimal;
-
-    @FXML
-    private TextArea donationTxtArea;
-    @FXML
-    private TextField amountField;
     @FXML
     private DatePicker dateAndTime;
     @FXML
     private TableColumn<?, ?> tbc_species;
-
     @FXML
     private TableColumn<?, ?> tbc_breed;
-
     @FXML
     private TableColumn<?, ?> tbv_petName;
     @FXML
     private ComboBox<String> timeCombo;
-
     @FXML
     private TableColumn<?, ?> tbc_animalID;
     @FXML
     private TableView<AnimalType> tv_animalAdopt;
+    @FXML
+    private Button donateButton;
 
     private ObservableList<String> animalSpecies = FXCollections.observableArrayList("Dogs", "Cats", "Monkey", "Rabbit");
     private ObservableList<String> dogBreeds = FXCollections.observableArrayList("Husky", "Chihuahua", "Beagle", "Pug", "Boston Terrier", "GreyHound", "Pomeranian", "Maltese", "Poodle", "Mix");
@@ -115,6 +113,12 @@ public class Customer_Controller extends Employee_Controller {
     }
 
     @FXML
+    void donate(MouseEvent event) throws URISyntaxException, IOException {
+        Desktop d = Desktop.getDesktop();
+        d.browse(new URI("https://www.gofundme.com/f/y7wce7-animal-shelter?utm_source=customer&utm_medium=copy_link&utm_campaign=p_cf+share-flow-1"));
+    }
+
+    @FXML
     void loadAdoption() throws SQLException {
         AnimalType am = tv_animalAdopt.getSelectionModel().getSelectedItem();
         String name = nameField.getText();
@@ -130,14 +134,6 @@ public class Customer_Controller extends Employee_Controller {
         adoptionDB.setString(4, String.valueOf(date));
         adoptionDB.setString(5, time);
         adoptionDB.executeUpdate();
-    }
-
-    @FXML
-    void donateBtn(ActionEvent event) {
-        donationTxtArea.appendText("THANK YOU FOR YOUR DONATION OF: \n");
-        donationTxtArea.appendText(amountField.getText() + "\n");
-        donationTxtArea.appendText("Have a good day");
-
     }
 
     void populateAdoptTable() {

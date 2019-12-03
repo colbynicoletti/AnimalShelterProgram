@@ -70,7 +70,7 @@ public class Login_Controller {
         PASS = prop.getProperty("password");
         conn = DriverManager.getConnection(DB_URL, USER, PASS);
         stmt = conn.createStatement();
-        System.out.println("Successfully connected to Animal database!");
+        System.out.println("Successfully connected to animal database!");
       } catch (Exception e) {
         e.printStackTrace();
         Alert a = new Alert(Alert.AlertType.ERROR);
