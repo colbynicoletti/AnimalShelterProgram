@@ -51,18 +51,29 @@ public class Customer_Controller extends Employee_Controller {
     private TableView<AnimalType> tv_animalAdopt;
     @FXML
     private Button donateButton;
+    @FXML
+    private TextArea appTxt;
 
+    @FXML
+    private Button okButton;
+
+    /**
+     * ObservableList
+     */
     private ObservableList<String> animalSpecies = FXCollections.observableArrayList("Dogs", "Cats", "Monkey", "Rabbit");
-    private ObservableList<String> dogBreeds = FXCollections.observableArrayList("Husky", "Chihuahua", "Beagle", "Pug", "Boston Terrier", "GreyHound", "Pomeranian", "Maltese", "Poodle", "Mix","Other");
-    private ObservableList<String> catBreeds = FXCollections.observableArrayList("Persion Cat", "Russian Blue", "Bengal Cat", "British Shorthair", "Munchkin", "Siamese Cat", "Ragdoll", "Mix","Other");
-    private ObservableList<String> monkeyBreeds = FXCollections.observableArrayList("Capuchin", "Guenon", "Macaque", "Tamarin", "Marmosets", "Other");
-    private ObservableList<String> rabbitBreeds = FXCollections.observableArrayList("Holland Lop", "Netherland Dwarf", "Flemish Giant", "Lionhead", "Rex", "Angora", "Other");
+    private ObservableList<String> dogBreeds = FXCollections.observableArrayList("Husky", "Chihuahua", "Beagle", "Pug", "Boston Terrier", "GreyHound", "Pomeranian", "Maltese", "Poodle", "Mixed","Other");
+    private ObservableList<String> catBreeds = FXCollections.observableArrayList("Persion Cat", "Russian Blue", "Bengal Cat", "British Shorthair", "Munchkin", "Siamese Cat", "Ragdoll", "Mixed","Other");
+    private ObservableList<String> monkeyBreeds = FXCollections.observableArrayList("Capuchin", "Guenon", "Macaque", "Tamarin", "Marmosets","Mixed", "Other");
+    private ObservableList<String> rabbitBreeds = FXCollections.observableArrayList("Holland Lop", "Netherland Dwarf", "Flemish Giant", "Lionhead", "Rex", "Angora","Mixed", "Other");
     private ObservableList<String> appointmentTime = FXCollections.observableArrayList("8:00am", "9:00am", "10:00am", "11:00am", "12:00pm", "1:00pm", "2:00pm", "3:00pm", "4:00pm", "5:00pm");
 
 
     private Connection conn;
     private Statement stmt;
 
+    /**
+     * Initialize method
+     */
     public void initialize() {
 //        initializeChoiceBox2();
         populateAdoptTable();
@@ -73,9 +84,13 @@ public class Customer_Controller extends Employee_Controller {
 
     }
 
+    /**
+     * Method used to select breed
+     * @param event
+     */
     @FXML
     void breedChoice(ActionEvent event) {
-        breedCombo.setValue("Breeds");
+        breedCombo.setValue("Select Breeds");
         if (speciesCombo.getValue().equals("Dogs")) {
             breedCombo.setItems(dogBreeds);
             System.out.println("print dog");
@@ -93,15 +108,31 @@ public class Customer_Controller extends Employee_Controller {
         }
     }
 
+    /**
+     * Adopt Button method
+     * Gets selected animal for adoption
+     * @param event
+     * @throws SQLException
+     */
     @FXML
     void adoptButton(ActionEvent event) throws SQLException {
         System.out.println("Adopted");
         AnimalType am = tv_animalAdopt.getSelectionModel().getSelectedItem();
         selectedAnimal.setText(am.toString());
+        Alert b = new Alert(Alert.AlertType.INFORMATION);
+        b.setAlertType(Alert.AlertType.CONFIRMATION);
+        b.setContentText("ANIMAL ADOPTED: \n" + am + "\nPlease schedule an appointment");
+        b.show();
     }
 
+    /**
+     * Submit appointment button method
+     * @param event
+     * @throws SQLException
+     * @throws IOException
+     */
     @FXML
-    void submitAppointment(ActionEvent event) throws SQLException {
+    void submitAppointment(ActionEvent event) throws SQLException, IOException {
         System.out.println("Thank you for your interest in Adopting");
         System.out.println("Below is your appointment information");
         System.out.println(nameField.getText());
@@ -110,14 +141,31 @@ public class Customer_Controller extends Employee_Controller {
         System.out.println(dateAndTime.getValue());
         System.out.println(timeCombo.getValue());
         loadAdoption();
+        Alert a = new Alert(Alert.AlertType.NONE);
+        a.setAlertType(Alert.AlertType.CONFIRMATION);
+        a.setContentText("THANK YOU FOR FOR ADOPTING" + "\nBelow is your information: " + "\n" + "Name: " + nameField.getText() + "\n" + "Number: " + numberField.getText() + "\n" + "Date: " + dateAndTime.getValue() + "\n" + "Time: " + timeCombo.getValue() );
+        a.show();
+
     }
 
+    /**
+     * Donate button method
+     * Takes you to a go fund me page to donate
+     * @param event
+     * @throws URISyntaxException
+     * @throws IOException
+     */
     @FXML
     void donate(MouseEvent event) throws URISyntaxException, IOException {
         Desktop d = Desktop.getDesktop();
         d.browse(new URI("https://www.gofundme.com/f/zxf5zc-animal-shelter?utm_source=customer&utm_medium=copy_link&utm_campaign=p_cf+share-flow-1"));
     }
 
+    /**
+     * Search button method
+     * Allows you to search through species and breed
+     * @param event
+     */
     @FXML
     void search_Btn(ActionEvent event) {
         tv_animalAdopt.getItems().clear();
@@ -149,9 +197,12 @@ public class Customer_Controller extends Employee_Controller {
                 e.printStackTrace();
             }
 
-
     }
 
+    /**
+     * load adopted animal into database
+     * @throws SQLException
+     */
     @FXML
     void loadAdoption() throws SQLException {
         AnimalType am = tv_animalAdopt.getSelectionModel().getSelectedItem();
@@ -170,6 +221,9 @@ public class Customer_Controller extends Employee_Controller {
         adoptionDB.executeUpdate();
     }
 
+    /**
+     * Method used to populate the adoption table
+     */
     void populateAdoptTable() {
         ObservableList<String> animalList = FXCollections.observableArrayList();
 
@@ -196,7 +250,11 @@ public class Customer_Controller extends Employee_Controller {
     }
 //
 
-
+    /**
+     * Takes you back to the login page
+     * @param event
+     * @throws IOException
+     */
     public void previous(MouseEvent event) throws IOException {
         Parent newRoot = FXMLLoader.load(getClass().getResource("login.fxml"));
         Scene homePage = new Scene(newRoot);

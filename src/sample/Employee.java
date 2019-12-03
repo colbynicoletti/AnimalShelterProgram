@@ -2,11 +2,9 @@ package sample;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
- * Employee class allows the user to create an employee account. @Author: Nickolas Gadomski
+ * Employee class allows the user to create an employee account.
  */
 @SuppressWarnings("ALL")
 public class Employee {
