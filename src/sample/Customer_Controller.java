@@ -16,7 +16,6 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import java.awt.Desktop;
 import java.net.URI;
-
 import java.net.URISyntaxException;
 import java.sql.*;
 import java.time.LocalDate;

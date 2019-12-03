@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.sql.*;
 import java.time.LocalTime;
 import java.time.temporal.TemporalAccessor;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
 public class Employee_Controller extends Main {
@@ -77,8 +79,12 @@ public class Employee_Controller extends Main {
     @FXML
     private ComboBox<String> cb_time;
 
+    @FXML
+    private TextArea ta_adoptionRecord;
+
     public ObservableList<AnimalType> animalObservableList = FXCollections.observableArrayList();
     private ObservableList<Events> eventsObservableList;
+    ArrayList<Adoptions> adoptRecordArray;
 
 
     public void initialize() throws SQLException {
@@ -88,6 +94,8 @@ public class Employee_Controller extends Main {
         setTvDisplay();
         populateSpeciesCb();
         addToObservableList();
+        loadAdoptionLog();
+        showAdoptions();
         btn_checkIn.setOnMouseClicked(this::addToAnimalTable);
         btn_submitEvent.setOnMouseClicked(this::addEvent);
     }
@@ -183,6 +191,33 @@ public class Employee_Controller extends Main {
             eventsObservableList.add(eventsFromDb);
         }
         rs.close();
+    }
+
+    public void loadAdoptionLog() throws SQLException {
+
+        adoptRecordArray = new ArrayList<>();
+        String sql = "SELECT * FROM ADOPTION_TABLE";
+        ResultSet rs = Login_Controller.stmt.executeQuery(sql);
+        while (rs.next()) {
+            // corresponds to database table columns
+            String animalID = rs.getString(1);
+            String customerName = rs.getString(2);
+            String phoneNumber = rs.getString(3);
+            Date date = new Date(rs.getTimestamp(4).getTime());
+            String time = rs.getString(5);
+            // create object
+            Adoptions adoptionDB =
+                    new Adoptions(animalID, customerName, phoneNumber, date, time);
+            // save to observable list
+            adoptRecordArray.add(adoptionDB);
+        }
+        rs.close();
+    }
+
+    public void showAdoptions() {
+        for (int i = 0; i < adoptRecordArray.size(); i++) {
+            ta_adoptionRecord.appendText(adoptRecordArray.get(i).toString() + "\n");
+        }
     }
 
     public void populateTime() {
