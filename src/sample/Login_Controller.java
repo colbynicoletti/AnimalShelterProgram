@@ -46,7 +46,7 @@ public class Login_Controller {
     appStage.setScene(employeeView);
     appStage.setScene(employeeView);
     employeeView.getStylesheets().add
-            (getClass().getResource("Employee.css").toExternalForm());
+            (getClass().getResource("Customer.css").toExternalForm());
     appStage.show();
   }
 
