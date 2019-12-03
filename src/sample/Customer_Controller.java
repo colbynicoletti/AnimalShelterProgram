@@ -25,22 +25,6 @@ public class Customer_Controller extends Employee_Controller {
 
     @FXML
     private ComboBox<String> breedCombo;
-
-    @FXML
-    private ComboBox<String> idCombo;
-    @FXML
-    private ListView<String> displayAnimal;
-    @FXML
-    private ComboBox<String> cb_dateTime;
-    @FXML
-    private ComboBox<String> genderCombo;
-
-    @FXML
-    private ComboBox<String> spaNeuCombo;
-
-    @FXML
-    private ComboBox<String> ageCombo;
-
     @FXML
     private TextField numberField;
     @FXML
@@ -67,8 +51,6 @@ public class Customer_Controller extends Employee_Controller {
 
     @FXML
     private TableColumn<?, ?> tbc_animalID;
-    @FXML
-    private Button btn_search;
     @FXML
     private TableView<AnimalType> tv_animalAdopt;
 
@@ -111,44 +93,12 @@ public class Customer_Controller extends Employee_Controller {
         }
     }
 
-//    private void initializeChoiceBox2() {
-//
-//        ObservableList<String> data = idCombo.getItems(); // Get item value input
-//
-//        //data.clear();
-//        data.add("CA12");
-//        data.add("CA34");
-//        data.add("DO12");
-//        data.add("DO34");
-//        data.add("MO12");
-//        data.add("MO34");
-//        data.add("RA12");
-//        data.add("RA34");
-////
-//        idCombo.getSelectionModel().selectFirst();
-//    }
-
-
     @FXML
     void adoptButton(ActionEvent event) throws SQLException {
         System.out.println("Adopted");
         AnimalType am = tv_animalAdopt.getSelectionModel().getSelectedItem();
         selectedAnimal.setText(am.toString());
     }
-
-//    @FXML
-//    void loadAnimal() throws SQLException {
-//        String breed = breedCombo.getValue();
-//        String animalid = idCombo.getValue();
-//        String specie = speciesCombo.getValue();
-//        String animalQuery = "INSERT INTO ANIMALS (SPECIES, BREED, PETNAME, ANIMALID) VALUES(?, ?, ?, ?)";
-//        PreparedStatement animalDB = conn.prepareStatement(animalQuery);
-//        animalDB.setString(1, specie);
-//        animalDB.setString(2, breed);
-//        animalDB.setString(4, animalid);
-//        animalDB.executeUpdate();
-//    }
-
 
     @FXML
     void submitAppointment(ActionEvent event) throws SQLException {
@@ -159,8 +109,6 @@ public class Customer_Controller extends Employee_Controller {
         System.out.println("Date and time: ");
         System.out.println(dateAndTime.getValue());
         System.out.println(timeField.getText());
-//        System.out.println("Animal for adoption: ");
-//        selectedAnimal.appendText(speciesCombo.getValue() + "\n" + breedCombo.getValue() + "\n" + idCombo.getValue() + "\n" + ageCombo.getValue() + "\n" + genderCombo.getValue() + "\n" + spaNeuCombo.getValue());
         loadAdoption();
     }
 
