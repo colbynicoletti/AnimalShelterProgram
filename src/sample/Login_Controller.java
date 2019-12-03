@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -23,6 +24,8 @@ public class Login_Controller {
   @FXML
   public Button btn_customerLogin;
 
+  @FXML
+  private TextField tf_firstAndLastName;
 
   @FXML
   public void customerLogin (MouseEvent event) throws IOException {
@@ -73,6 +76,11 @@ public class Login_Controller {
         Alert a = new Alert(Alert.AlertType.ERROR);
         a.show();
       }
+
+  }
+
+  @FXML
+  void firstAndLastName(MouseEvent event) {
 
   }
 }
