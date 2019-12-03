@@ -8,19 +8,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import java.awt.Desktop;
+
+import java.awt.*;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
 import java.time.LocalDate;
-
-import java.io.IOException;
 
 public class Customer_Controller extends Employee_Controller {
 
@@ -52,8 +53,8 @@ public class Customer_Controller extends Employee_Controller {
     private Button donateButton;
 
     private ObservableList<String> animalSpecies = FXCollections.observableArrayList("Dogs", "Cats", "Monkey", "Rabbit");
-    private ObservableList<String> dogBreeds = FXCollections.observableArrayList("Husky", "Chihuahua", "Beagle", "Pug", "Boston Terrier", "GreyHound", "Pomeranian", "Maltese", "Poodle", "Mix");
-    private ObservableList<String> catBreeds = FXCollections.observableArrayList("Persion Cat", "Russian Blue", "Bengal Cat", "British Shorthair", "Munchkin", "Siamese Cat", "Ragdoll", "Mix");
+    private ObservableList<String> dogBreeds = FXCollections.observableArrayList("Husky", "Chihuahua", "Beagle", "Pug", "Boston Terrier", "GreyHound", "Pomeranian", "Maltese", "Poodle", "Mix","Other");
+    private ObservableList<String> catBreeds = FXCollections.observableArrayList("Persion Cat", "Russian Blue", "Bengal Cat", "British Shorthair", "Munchkin", "Siamese Cat", "Ragdoll", "Mix","Other");
     private ObservableList<String> monkeyBreeds = FXCollections.observableArrayList("Capuchin", "Guenon", "Macaque", "Tamarin", "Marmosets", "Other");
     private ObservableList<String> rabbitBreeds = FXCollections.observableArrayList("Holland Lop", "Netherland Dwarf", "Flemish Giant", "Lionhead", "Rex", "Angora", "Other");
     private ObservableList<String> appointmentTime = FXCollections.observableArrayList("8:00am", "9:00am", "10:00am", "11:00am", "12:00pm", "1:00pm", "2:00pm", "3:00pm", "4:00pm", "5:00pm");
@@ -115,6 +116,40 @@ public class Customer_Controller extends Employee_Controller {
     void donate(MouseEvent event) throws URISyntaxException, IOException {
         Desktop d = Desktop.getDesktop();
         d.browse(new URI("https://www.gofundme.com/f/zxf5zc-animal-shelter?utm_source=customer&utm_medium=copy_link&utm_campaign=p_cf+share-flow-1"));
+    }
+
+    @FXML
+    void search_Btn(ActionEvent event) {
+        tv_animalAdopt.getItems().clear();
+        String selectionSpecies = speciesCombo.getValue();
+        String selectionBreed = breedCombo.getValue();
+        tv_animalAdopt.setItems(animalObservableList);
+
+            try {
+                //Searching the data bas for dogs
+                if(selectionBreed == "Other") {
+                    String sql = "SELECT * FROM ANIMALS WHERE SPECIES='" + selectionSpecies+"'" ;
+                    ResultSet rs = Login_Controller.stmt.executeQuery(sql);
+                    while (rs.next()) {
+                        // these lines correspond to the database table columns
+                        animalObservableList.add(
+                                new Widget(Species.valueOf(rs.getString("species")), rs.getString("breed"), rs.getString("petName"), rs.getString("animalID")));
+                    }
+                }
+
+                    String sql = "SELECT * FROM ANIMALS WHERE SPECIES='" + selectionSpecies + "' AND BREED ='" + selectionBreed + "'";
+                    ResultSet rs = Login_Controller.stmt.executeQuery(sql);
+                    while (rs.next()) {
+                        // these lines correspond to the database table columns
+                        animalObservableList.add(
+                                new Widget(Species.valueOf(rs.getString("species")), rs.getString("breed"), rs.getString("petName"), rs.getString("animalID")));
+                    }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
     }
 
     @FXML
