@@ -114,6 +114,7 @@ public class Login_Controller {
                 loginLabel.setText("Invalid account.");
             }
         }
+        rs.close();
     }
 
     public void account() throws SQLException {
