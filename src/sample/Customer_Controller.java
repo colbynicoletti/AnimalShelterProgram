@@ -114,7 +114,7 @@ public class Customer_Controller extends Employee_Controller {
     @FXML
     void donate(MouseEvent event) throws URISyntaxException, IOException {
         Desktop d = Desktop.getDesktop();
-        d.browse(new URI("https://www.gofundme.com/f/y7wce7-animal-shelter?utm_source=customer&utm_medium=copy_link&utm_campaign=p_cf+share-flow-1"));
+        d.browse(new URI("https://www.gofundme.com/f/zxf5zc-animal-shelter?utm_source=customer&utm_medium=copy_link&utm_campaign=p_cf+share-flow-1"));
     }
 
     @FXML

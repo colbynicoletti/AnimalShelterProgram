@@ -5,53 +5,34 @@ import java.util.regex.Pattern;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-/** Employee class allows the user to create an employee account. @Author: Nickolas Gadomski */
+/**
+ * Employee class allows the user to create an employee account. @Author: Nickolas Gadomski
+ */
 @SuppressWarnings("ALL")
 public class Employee {
-    /** Class level fields to be used throughout the code. */
+    /**
+     * Class level fields to be used throughout the code.
+     */
     private StringBuilder name;
-
-    String username;
+    private String username;
     private String password;
-    String email;
+    private String email;
 
     /**
      * Employee class constructor for local fields.
      *
-     * @param name local String name
+     * @param name     local String name
      * @param password local String password
      */
     Employee(String name, String password) {
         StringBuilder sbName = new StringBuilder(name);
-        StringBuilder defaultUsername = new StringBuilder("default");
-        StringBuilder defaultEmail = new StringBuilder("user");
         this.name = sbName;
-        this.password = password;
         if (checkName(sbName)) {
             setUsername(sbName);
             setEmail(sbName);
-        } else {
-            JFrame frame = new JFrame("");
-            JOptionPane.showMessageDialog(
-                    frame.getContentPane(),
-                    "Input First name & Last name to create custom account\n" + "Default account is set.",
-                    "Default Username",
-                    JOptionPane.ERROR_MESSAGE);
-            setUsername(defaultUsername);
-            setEmail(defaultEmail);
         }
         if (isValidPassword(password)) {
             this.password = password;
-        } else {
-            this.password = "pw";
-            JFrame frame = new JFrame("");
-            JOptionPane.showMessageDialog(
-                    frame.getContentPane(),
-                    "Password must contain Upper and Lower case letter & Special Character\n"
-                            + "Default password is set.",
-                    "Default Password",
-                    JOptionPane.ERROR_MESSAGE);
-            setUsername(defaultUsername);
         }
     }
 
@@ -101,7 +82,7 @@ public class Employee {
      * @return matcher
      */
     private boolean isValidPassword(String password) {
-        final String regex = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\W).*$";
+        final String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\W).*$";
         final Pattern pattern = Pattern.compile(regex);
         final Matcher matcher = pattern.matcher(password);
         return matcher.matches();
@@ -132,6 +113,10 @@ public class Employee {
      */
     public String getUsername() {
         return username;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     /**

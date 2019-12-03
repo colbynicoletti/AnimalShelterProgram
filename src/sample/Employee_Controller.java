@@ -29,9 +29,6 @@ public class Employee_Controller extends Main {
     public Button btn_generateId;
 
     @FXML
-    public Label lbl_dateFormatE;
-
-    @FXML
     public Button btn_submitEvent;
 
     @FXML
@@ -84,7 +81,7 @@ public class Employee_Controller extends Main {
 
     public ObservableList<AnimalType> animalObservableList = FXCollections.observableArrayList();
     private ObservableList<Events> eventsObservableList;
-    ArrayList<Adoptions> adoptRecordArray;
+    private ArrayList<Adoptions> adoptRecordArray;
 
 
     public void initialize() throws SQLException {
