@@ -28,9 +28,11 @@ public class Login_Controller {
   public void customerLogin (MouseEvent event) throws IOException {
     System.out.println("Customer Login Button Clicked.");
     Parent root2 = FXMLLoader.load(getClass().getResource("Customer.fxml"));
-    Scene employeeView = new Scene(root2);
+    Scene employeeView = new Scene(root2,700, 500);
     Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     appStage.setScene(employeeView);
+    employeeView.getStylesheets().add
+            (getClass().getResource("Customer.css").toExternalForm());
     appStage.show();
   }
 
@@ -39,9 +41,12 @@ public class Login_Controller {
 
     System.out.println("Employee Login Button Clicked.");
     Parent root3 = FXMLLoader.load(getClass().getResource("Employee.fxml"));
-    Scene employeeView = new Scene(root3);
+    Scene employeeView = new Scene(root3,700, 500);
     Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     appStage.setScene(employeeView);
+    appStage.setScene(employeeView);
+    employeeView.getStylesheets().add
+            (getClass().getResource("Employee.css").toExternalForm());
     appStage.show();
   }
 

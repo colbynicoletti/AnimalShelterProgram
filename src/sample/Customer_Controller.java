@@ -30,8 +30,6 @@ public class Customer_Controller extends Employee_Controller {
     @FXML
     private TextField nameField;
     @FXML
-    private TextField timeField;
-    @FXML
     private TextArea selectedAnimal;
 
     @FXML
@@ -48,6 +46,8 @@ public class Customer_Controller extends Employee_Controller {
 
     @FXML
     private TableColumn<?, ?> tbv_petName;
+    @FXML
+    private ComboBox<String> timeCombo;
 
     @FXML
     private TableColumn<?, ?> tbc_animalID;
@@ -59,6 +59,7 @@ public class Customer_Controller extends Employee_Controller {
     private ObservableList<String> catBreeds = FXCollections.observableArrayList("Persion Cat", "Russian Blue", "Bengal Cat", "British Shorthair", "Munchkin", "Siamese Cat", "Ragdoll", "Mix");
     private ObservableList<String> monkeyBreeds = FXCollections.observableArrayList("Capuchin", "Guenon", "Macaque", "Tamarin", "Marmosets", "Other");
     private ObservableList<String> rabbitBreeds = FXCollections.observableArrayList("Holland Lop", "Netherland Dwarf", "Flemish Giant", "Lionhead", "Rex", "Angora", "Other");
+    private ObservableList<String> appointmentTime = FXCollections.observableArrayList("8:00am", "9:00am", "10:00am", "11:00am", "12:00pm", "1:00pm", "2:00pm", "3:00pm", "4:00pm", "5:00pm");
 
 
     private Connection conn;
@@ -70,6 +71,7 @@ public class Customer_Controller extends Employee_Controller {
         speciesCombo.setValue("Species");
         speciesCombo.setItems(animalSpecies);
         breedCombo.setValue("Breed");
+        timeCombo.setItems(appointmentTime);
 
     }
 
@@ -108,7 +110,7 @@ public class Customer_Controller extends Employee_Controller {
         System.out.println(numberField.getText());
         System.out.println("Date and time: ");
         System.out.println(dateAndTime.getValue());
-        System.out.println(timeField.getText());
+        System.out.println(timeCombo.getValue());
         loadAdoption();
     }
 
@@ -118,7 +120,7 @@ public class Customer_Controller extends Employee_Controller {
         String name = nameField.getText();
         String animalID = am.getAnimalID();
         LocalDate date = dateAndTime.getValue();
-        String time = timeField.getText();
+        String time = timeCombo.getValue();
         String phone = numberField.getText();
         String adoptionQuery = "INSERT INTO ADOPTION_TABLE (ANIMAL_ID, CUSTOMER_NAME, PHONE_NUMBER, DATE, TIME) VALUES(?, ?, ?, ?, ?)";
         PreparedStatement adoptionDB = Login_Controller.conn.prepareStatement(adoptionQuery);

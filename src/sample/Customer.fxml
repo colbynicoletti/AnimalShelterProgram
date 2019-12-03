@@ -44,17 +44,29 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <Label layoutX="417.0" layoutY="14.0" prefHeight="26.0" prefWidth="43.0" text="Name:" />
-                                <Label layoutX="417.0" layoutY="83.0" prefHeight="23.0" prefWidth="95.0" text="Phone Number:" />
-                                <Label layoutX="420.0" layoutY="205.0" prefHeight="24.0" prefWidth="116.0" text="Select Date(Mon-Fri):" />
+                                <Label layoutX="417.0" layoutY="14.0" prefHeight="26.0" prefWidth="43.0" text="Name:" textFill="#250a0a" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Label>
+                                <Label layoutX="417.0" layoutY="83.0" prefHeight="23.0" prefWidth="118.0" text="Phone Number:" textFill="#250a0a" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Label>
+                                <Label layoutX="420.0" layoutY="205.0" prefHeight="24.0" prefWidth="137.0" text="Select Date(Mon-Fri):" textFill="#1b0404" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Label>
                                 <TextField fx:id="numberField" layoutX="417.0" layoutY="113.0" prefHeight="25.0" prefWidth="143.0" />
                                 <TextField fx:id="nameField" layoutX="417.0" layoutY="49.0" prefHeight="26.0" prefWidth="142.0" />
                                 <Button fx:id="btn_Appointment" layoutX="366.0" layoutY="317.0" mnemonicParsing="false" onAction="#submitAppointment" prefHeight="25.0" prefWidth="188.0" text="Submit Appointment" />
                                 <Button fx:id="goBack2" layoutX="48.0" layoutY="316.0" mnemonicParsing="false" onMouseClicked="#previous" prefHeight="26.0" prefWidth="110.0" text="Previous Page" />
                                 <TextArea fx:id="selectedAnimal" layoutX="26.0" layoutY="26.0" prefHeight="222.0" prefWidth="324.0" />
                                 <DatePicker fx:id="dateAndTime" layoutX="417.0" layoutY="236.0" />
-                        <TextField fx:id="timeField" layoutX="418.0" layoutY="173.0" prefHeight="25.0" prefWidth="145.0" />
-                        <Label layoutX="417.0" layoutY="148.0" text="Enter time(8am-5pm)" />
+                        <Label layoutX="417.0" layoutY="148.0" prefHeight="20.0" prefWidth="137.0" text="Select time(8am-5pm)" textFill="#0a0202" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Label>
+                        <ComboBox fx:id="timeCombo" layoutX="416.0" layoutY="173.0" prefHeight="25.0" prefWidth="139.0" />
                             </children>
                         </AnchorPane>
                     </content>
@@ -65,12 +77,15 @@
                             <children>
                                 <TextField fx:id="amountField" layoutX="25.0" layoutY="161.0" />
                                 <TextArea fx:id="donationTxtArea" layoutX="141.0" layoutY="220.0" prefHeight="137.0" prefWidth="299.0" />
-                                <Label layoutX="56.0" layoutY="14.0" prefHeight="35.0" prefWidth="488.0" text="PLEASE DONATE TO SUPPORT OUR SHELTER" textFill="#000000c2">
+                                <Label layoutX="56.0" layoutY="14.0" prefHeight="35.0" prefWidth="488.0" text="PLEASE DONATE TO SUPPORT OUR SHELTER" textFill="#1e0808c2" wrapText="true">
                                     <font>
                                         <Font size="24.0" />
                                     </font>
                                 </Label>
-                                <Label layoutX="25.0" layoutY="135.0" text="Enter amount" />
+                                <Label layoutX="25.0" layoutY="135.0" text="Enter amount" textFill="#1e0707" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Label>
                                 <Button fx:id="donateButton" layoutX="408.0" layoutY="161.0" mnemonicParsing="false" onAction="#donateBtn" prefHeight="25.0" prefWidth="105.0" text="Donate" />
                             </children></AnchorPane>
                     </content>
