@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Login_Controller">
    <children>
-      <Button fx:id="btn_employeeLogin" layoutX="20.0" layoutY="357.0" mnemonicParsing="false" onMouseClicked="#employeeLogin" prefHeight="31.0" prefWidth="111.0" text="Login" />
+      <Button fx:id="btn_employeeLogin" layoutX="10.0" layoutY="350.0" mnemonicParsing="false" onMouseClicked="#employeeLogin" prefHeight="31.0" prefWidth="120.0" text="Login" />
       <Line endX="300.0" layoutX="300.0" layoutY="55.0" startX="-300.0" />
       <Label alignment="CENTER" layoutX="148.0" layoutY="1.0" prefHeight="27.0" prefWidth="304.0" text="Welcome to the Animal Shelter!" textFill="#4309e2" textOverrun="CENTER_WORD_ELLIPSIS">
          <font>
@@ -26,24 +26,24 @@
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
-      <Label layoutX="416.0" layoutY="94.0" text="Browse Our Animals " textFill="#4309e2">
+      <Label layoutX="382.0" layoutY="81.0" text="Browse Our Animals " textFill="#4309e2">
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
-      <Button fx:id="btn_customerLogin" layoutX="432.0" layoutY="132.0" mnemonicParsing="false" onMouseClicked="#customerLogin" prefHeight="31.0" prefWidth="145.0" text="Proceed as customer" />
+      <Button fx:id="btn_customerLogin" layoutX="396.0" layoutY="120.0" mnemonicParsing="false" onMouseClicked="#customerLogin" prefHeight="30.0" prefWidth="150.0" text="Proceed as customer" />
       <TextField fx:id="tf_username" layoutX="10.0" layoutY="135.0" prefHeight="25.0" prefWidth="265.0" />
-      <Label layoutX="13.0" layoutY="108.0" text="Username:" textFill="#4309e2">
+      <Label layoutX="10.0" layoutY="110.0" text="Username:" textFill="#4309e2">
          <font>
             <Font name="System Bold" size="16.0" />
          </font></Label>
-      <Label layoutX="15.0" layoutY="162.0" text="Password:" textFill="#4309e2">
+      <Label layoutX="10.0" layoutY="162.0" text="Password:" textFill="#4309e2">
          <font>
             <Font name="System Bold" size="16.0" />
          </font></Label>
-      <PasswordField fx:id="tf_employeePass" layoutX="10.0" layoutY="193.0" prefHeight="25.0" prefWidth="265.0" />
+      <PasswordField fx:id="tf_employeePass" layoutX="10.0" layoutY="190.0" prefHeight="25.0" prefWidth="265.0" />
       <TextArea fx:id="ta_employeeAccount" layoutX="320.0" layoutY="205.0" prefHeight="159.0" prefWidth="265.0" />
-      <Button fx:id="btn_createAccount" layoutX="152.0" layoutY="357.0" mnemonicParsing="false" onMouseClicked="#createAccount" prefHeight="31.0" prefWidth="133.0" text="Create Account" />
-      <TextField fx:id="tf_firstAndLastName" layoutX="4.0" layoutY="254.0" onMouseClicked="#firstAndLastName" prefHeight="31.0" prefWidth="276.0" />
+      <Button fx:id="btn_createAccount" layoutX="150.0" layoutY="350.0" mnemonicParsing="false" onMouseClicked="#createAccount" prefHeight="31.0" prefWidth="120.0" text="Create Account" />
+      <TextField fx:id="tf_firstAndLastName" layoutX="10.0" layoutY="250.0" onMouseClicked="#firstAndLastName" prefHeight="25.0" prefWidth="265.0" />
       <Label layoutX="10.0" layoutY="229.0" prefHeight="25.0" prefWidth="276.0" text="First and Last Name (Ex. Joe Smith)" textFill="#4309e2">
          <font>
             <Font name="System Bold" size="16.0" />

@@ -60,11 +60,11 @@ public class Customer_Controller extends Employee_Controller {
     /**
      * ObservableList
      */
-    private ObservableList<String> animalSpecies = FXCollections.observableArrayList("Dogs", "Cats", "Monkey", "Rabbit");
-    private ObservableList<String> dogBreeds = FXCollections.observableArrayList("Husky", "Chihuahua", "Beagle", "Pug", "Boston Terrier", "GreyHound", "Pomeranian", "Maltese", "Poodle", "Mixed","Other");
-    private ObservableList<String> catBreeds = FXCollections.observableArrayList("Persion Cat", "Russian Blue", "Bengal Cat", "British Shorthair", "Munchkin", "Siamese Cat", "Ragdoll", "Mixed","Other");
-    private ObservableList<String> monkeyBreeds = FXCollections.observableArrayList("Capuchin", "Guenon", "Macaque", "Tamarin", "Marmosets","Mixed", "Other");
-    private ObservableList<String> rabbitBreeds = FXCollections.observableArrayList("Holland Lop", "Netherland Dwarf", "Flemish Giant", "Lionhead", "Rex", "Angora","Mixed", "Other");
+    private ObservableList<String> animalSpecies = FXCollections.observableArrayList("Dogs", "Cats", "Monkeys", "Rabbits");
+    private ObservableList<String> dogBreeds = FXCollections.observableArrayList("Husky", "Chihuahua", "Beagle", "Pug", "Boston Terrier", "GreyHound", "Pomeranian", "Maltese", "Poodle", "Mixed", "Other");
+    private ObservableList<String> catBreeds = FXCollections.observableArrayList("Persion Cat", "Russian Blue", "Bengal Cat", "British Shorthair", "Munchkin", "Siamese Cat", "Ragdoll", "Mixed", "Other");
+    private ObservableList<String> monkeyBreeds = FXCollections.observableArrayList("Capuchin", "Guenon", "Macaque", "Tamarin", "Marmosets", "Mixed", "Other");
+    private ObservableList<String> rabbitBreeds = FXCollections.observableArrayList("Holland Lop", "Netherland Dwarf", "Flemish Giant", "Lionhead", "Rex", "Angora", "Mixed", "Other");
     private ObservableList<String> appointmentTime = FXCollections.observableArrayList("8:00am", "9:00am", "10:00am", "11:00am", "12:00pm", "1:00pm", "2:00pm", "3:00pm", "4:00pm", "5:00pm");
 
 
@@ -75,21 +75,26 @@ public class Customer_Controller extends Employee_Controller {
      * Initialize method
      */
     public void initialize() {
-//        initializeChoiceBox2();
         populateAdoptTable();
+        // sets the combo box initial value to species
         speciesCombo.setValue("Species");
+        //populating the combo box with the animal species arrraylist
         speciesCombo.setItems(animalSpecies);
+        //setting the initial value to breed
         breedCombo.setValue("Breed");
+        //populates the combobox with apointed time
         timeCombo.setItems(appointmentTime);
 
     }
 
     /**
      * Method used to select breed
+     *
      * @param event
      */
     @FXML
     void breedChoice(ActionEvent event) {
+        //if else statements for animal selection if the species is selected populate the breed box with the selected species
         breedCombo.setValue("Select Breeds");
         if (speciesCombo.getValue().equals("Dogs")) {
             breedCombo.setItems(dogBreeds);
@@ -97,10 +102,10 @@ public class Customer_Controller extends Employee_Controller {
         } else if (speciesCombo.getValue().equals("Cats")) {
             breedCombo.setItems(catBreeds);
             System.out.println("Print cat");
-        } else if (speciesCombo.getValue().equals("Monkey")) {
+        } else if (speciesCombo.getValue().equals("Monkeys")) {
             breedCombo.setItems(monkeyBreeds);
             System.out.println("Print monkey");
-        } else if (speciesCombo.getValue().equals("Rabbit")) {
+        } else if (speciesCombo.getValue().equals("Rabbits")) {
             breedCombo.setItems(rabbitBreeds);
             System.out.println("print rabbit");
         } else {
@@ -111,6 +116,7 @@ public class Customer_Controller extends Employee_Controller {
     /**
      * Adopt Button method
      * Gets selected animal for adoption
+     *
      * @param event
      * @throws SQLException
      */
@@ -127,6 +133,7 @@ public class Customer_Controller extends Employee_Controller {
 
     /**
      * Submit appointment button method
+     *
      * @param event
      * @throws SQLException
      * @throws IOException
@@ -141,9 +148,10 @@ public class Customer_Controller extends Employee_Controller {
         System.out.println(dateAndTime.getValue());
         System.out.println(timeCombo.getValue());
         loadAdoption();
+        // this alert pops up for the adoption giving information and instruction
         Alert a = new Alert(Alert.AlertType.NONE);
         a.setAlertType(Alert.AlertType.CONFIRMATION);
-        a.setContentText("THANK YOU FOR FOR ADOPTING" + "\nBelow is your information: " + "\n" + "Name: " + nameField.getText() + "\n" + "Number: " + numberField.getText() + "\n" + "Date: " + dateAndTime.getValue() + "\n" + "Time: " + timeCombo.getValue() );
+        a.setContentText("THANK YOU FOR FOR ADOPTING" + "\nBelow is your information: " + "\n" + "Name: " + nameField.getText() + "\n" + "Number: " + numberField.getText() + "\n" + "Date: " + dateAndTime.getValue() + "\n" + "Time: " + timeCombo.getValue());
         a.show();
 
     }
@@ -151,6 +159,7 @@ public class Customer_Controller extends Employee_Controller {
     /**
      * Donate button method
      * Takes you to a go fund me page to donate
+     *
      * @param event
      * @throws URISyntaxException
      * @throws IOException
@@ -164,43 +173,48 @@ public class Customer_Controller extends Employee_Controller {
     /**
      * Search button method
      * Allows you to search through species and breed
+     *
      * @param event
      */
     @FXML
     void search_Btn(ActionEvent event) {
+        // this clears the columns
         tv_animalAdopt.getItems().clear();
+        //creating string variables to select species and breed
         String selectionSpecies = speciesCombo.getValue();
         String selectionBreed = breedCombo.getValue();
+        //populates the tableview with the observable arraylist
         tv_animalAdopt.setItems(animalObservableList);
-
-            try {
-                //Searching the data bas for dogs
-                if(selectionBreed == "Other") {
-                    String sql = "SELECT * FROM ANIMALS WHERE SPECIES='" + selectionSpecies+"'" ;
-                    ResultSet rs = Login_Controller.stmt.executeQuery(sql);
-                    while (rs.next()) {
-                        // these lines correspond to the database table columns
-                        animalObservableList.add(
-                                new Widget(Species.valueOf(rs.getString("species")), rs.getString("breed"), rs.getString("petName"), rs.getString("animalID")));
-                    }
+        // if statements and sql statements that filters through the database
+        try {
+            //Searching the database through if selected other populate the database with species
+            if (selectionBreed == "Other") {
+                String sql = "SELECT * FROM ANIMALS WHERE SPECIES='" + selectionSpecies + "'";
+                ResultSet rs = Login_Controller.stmt.executeQuery(sql);
+                while (rs.next()) {
+                    // these lines correspond to the database table columns
+                    animalObservableList.add(
+                            new Widget(Species.valueOf(rs.getString("species")), rs.getString("breed"), rs.getString("petName"), rs.getString("animalID")));
                 }
-
-                    String sql = "SELECT * FROM ANIMALS WHERE SPECIES='" + selectionSpecies + "' AND BREED ='" + selectionBreed + "'";
-                    ResultSet rs = Login_Controller.stmt.executeQuery(sql);
-                    while (rs.next()) {
-                        // these lines correspond to the database table columns
-                        animalObservableList.add(
-                                new Widget(Species.valueOf(rs.getString("species")), rs.getString("breed"), rs.getString("petName"), rs.getString("animalID")));
-                    }
-
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
+            //sql function that search based on breed and filters it and displays it into the tableview
+            String sql = "SELECT * FROM ANIMALS WHERE SPECIES='" + selectionSpecies + "' AND BREED ='" + selectionBreed + "'";
+            ResultSet rs = Login_Controller.stmt.executeQuery(sql);
+            while (rs.next()) {
+                // these lines correspond to the database table columns
+                animalObservableList.add(
+                        new Widget(Species.valueOf(rs.getString("species")), rs.getString("breed"), rs.getString("petName"), rs.getString("animalID")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
     /**
      * load adopted animal into database
+     *
      * @throws SQLException
      */
     @FXML
@@ -231,7 +245,9 @@ public class Customer_Controller extends Employee_Controller {
         tbc_breed.setCellValueFactory(new PropertyValueFactory<>("breeds"));
         tbv_petName.setCellValueFactory(new PropertyValueFactory<>("petName"));
         tbc_animalID.setCellValueFactory(new PropertyValueFactory<>("animalID"));
+        // populate the tableview with the observable list
         tv_animalAdopt.setItems(animalObservableList);
+        //sets the tableview to default all animals into the list with sql statement
         try {
             String sql = "SELECT * FROM ANIMALS";
             ResultSet rs = Login_Controller.stmt.executeQuery(sql);
@@ -252,6 +268,7 @@ public class Customer_Controller extends Employee_Controller {
 
     /**
      * Takes you back to the login page
+     *
      * @param event
      * @throws IOException
      */

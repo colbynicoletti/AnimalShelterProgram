@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Customer_Controller">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Customer_Controller">
     <children>
         <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
@@ -23,11 +23,11 @@
                             <children>
                                 <Button fx:id="btn_adopt" layoutX="320.0" layoutY="320.0" mnemonicParsing="false" onAction="#adoptButton" prefHeight="25.0" prefWidth="150.0" text="Adopt" />
                                 <Button fx:id="goBack1" layoutX="120.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#previous" prefHeight="26.0" prefWidth="150.0" text="Home Page" />
-                                <Label layoutX="26.0" layoutY="250.0" prefHeight="21.0" prefWidth="138.0" text="Search by Species" textFill="#e8cc09">
+                                <Label layoutX="26.0" layoutY="245.0" prefHeight="21.0" prefWidth="138.0" text="Search by Species" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font></Label>
-                                <Label layoutX="239.0" layoutY="250.0" text="Search by Breed" textFill="#e8cc09">
+                                <Label layoutX="234.0" layoutY="245.0" text="Search by Breed" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font></Label>
@@ -50,15 +50,11 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <Label layoutX="417.0" layoutY="26.0" prefHeight="26.0" prefWidth="62.0" text="Name:" textFill="#e8cc09" wrapText="true">
+                                <Label layoutX="416.0" layoutY="88.0" prefHeight="25.0" prefWidth="126.0" text="Phone Number:" wrapText="true">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font></Label>
-                                <Label layoutX="416.0" layoutY="88.0" prefHeight="25.0" prefWidth="126.0" text="Phone Number:" textFill="#e8cc09" wrapText="true">
-                           <font>
-                              <Font name="System Bold" size="16.0" />
-                           </font></Label>
-                                <Label layoutX="420.0" layoutY="205.0" prefHeight="24.0" prefWidth="266.0" text="Select Date(Mon-Fri):" textFill="#e8cc09" wrapText="true">
+                                <Label layoutX="420.0" layoutY="205.0" prefHeight="24.0" prefWidth="266.0" text="Select Date(Mon-Fri):" wrapText="true">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font></Label>
@@ -68,11 +64,16 @@
                                 <Button fx:id="goBack2" layoutX="48.0" layoutY="316.0" mnemonicParsing="false" onMouseClicked="#previous" prefHeight="26.0" prefWidth="110.0" text="Home Page" />
                                 <TextArea fx:id="selectedAnimal" layoutX="26.0" layoutY="26.0" prefHeight="222.0" prefWidth="324.0" />
                                 <DatePicker fx:id="dateAndTime" layoutX="417.0" layoutY="236.0" prefHeight="31.0" prefWidth="142.0" />
-                        <Label layoutX="417.0" layoutY="148.0" prefHeight="25.0" prefWidth="177.0" text="Select time(8am-5pm):" textFill="#e8cc09" wrapText="true">
+                        <Label layoutX="417.0" layoutY="148.0" prefHeight="25.0" prefWidth="177.0" text="Select time(8am-5pm):" wrapText="true">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font></Label>
                         <ComboBox fx:id="timeCombo" layoutX="416.0" layoutY="173.0" prefHeight="31.0" prefWidth="143.0" />
+                        <Label layoutX="417.0" layoutY="26.0" text="Name:">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
                             </children>
                         </AnchorPane>
                     </content>
@@ -81,12 +82,12 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <Label layoutX="56.0" layoutY="14.0" prefHeight="35.0" prefWidth="525.0" text="PLEASE DONATE TO SUPPORT OUR SHELTER" textFill="#e8cc09c2" wrapText="true">
+                                <Label layoutX="56.0" layoutY="14.0" prefHeight="35.0" prefWidth="525.0" text="PLEASE DONATE TO SUPPORT OUR SHELTER" textFill="#ffffffc2" wrapText="true">
                                     <font>
                                         <Font name="System Bold" size="24.0" />
                                     </font>
                                 </Label>
-                                <Label layoutX="154.0" layoutY="59.0" text="To donate, click the button below!" textFill="#e8cc09" wrapText="true">
+                                <Label layoutX="154.0" layoutY="59.0" text="To donate, click the button below!" textFill="WHITE" wrapText="true">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font></Label>
