@@ -20,6 +20,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
+/**
+ *
+ */
+
 public class Employee_Controller extends Main {
 
     @FXML
@@ -100,6 +104,8 @@ public class Employee_Controller extends Main {
     private void populateSpeciesCb() {
         ch_species.getItems().addAll(Species.Dogs);
         ch_species.getItems().addAll(Species.Cats);
+        ch_species.getItems().addAll(Species.Rabbits);
+        ch_species.getItems().addAll(Species.Monkeys);
     }
 
     private void addToAnimalTable(MouseEvent event) {
@@ -190,6 +196,11 @@ public class Employee_Controller extends Main {
         rs.close();
     }
 
+    /**'
+     *
+     * @throws SQLException
+     */
+
     public void loadAdoptionLog() throws SQLException {
 
         adoptRecordArray = new ArrayList<>();
@@ -200,7 +211,7 @@ public class Employee_Controller extends Main {
             String animalID = rs.getString(1);
             String customerName = rs.getString(2);
             String phoneNumber = rs.getString(3);
-            Date date = new Date(rs.getTimestamp(4).getTime());
+            String date =(rs.getString(4));
             String time = rs.getString(5);
             // create object
             Adoptions adoptionDB =
@@ -223,8 +234,12 @@ public class Employee_Controller extends Main {
         }
     }
 
-    public void populateEvents() {
-        ch_event.getItems().add(EventList.Checkup);
+  public void populateEvents() {
+        ch_event.getItems().add(EventList.Vet_Checkup);
+        ch_event.getItems().add(EventList.Kennel_Cleaning);
+        ch_event.getItems().add(EventList.Animal_Washing);
+        ch_event.getItems().add(EventList.Give_Medication);
+        ch_event.getItems().add(EventList.Feed_Animal);
     }
 
     private void setupTableView() {

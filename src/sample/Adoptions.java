@@ -1,16 +1,14 @@
 package sample;
 
-import java.util.Date;
-
 public class Adoptions {
-String animalID;
-String customerName;
-String phoneNumber;
-Date date;
-String time;
+    String animalID;
+    String customerName;
+    String phoneNumber;
+    String date;
+    String time;
 
 
-    public Adoptions(String animalID, String customerName, String phoneNumber, Date date, String time) {
+    public Adoptions(String animalID, String customerName, String phoneNumber, String date, String time) {
         this.animalID = animalID;
         this.customerName = customerName;
         this.phoneNumber = phoneNumber;
@@ -19,22 +17,12 @@ String time;
 
     }
 
-    /**
-     * Accessor for local ProduceDate field.
-     *
-     * @return Date produceDate
-     */
-    public Date getTimeStamp() {
-        return date;
+    public String getAnimalID() {
+        return animalID;
     }
 
-    /**
-     * Mutator sets local produce Date field.
-     *
-     * @param produceDate Date produceDate
-     */
-    public void setProduceDate(Date produceDate) {
-        this.date = new Date(produceDate.getTime());
+    public void setAnimalID(String animalID) {
+        this.animalID = animalID;
     }
 
     public String toString() {

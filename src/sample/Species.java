@@ -2,7 +2,9 @@ package sample;
 
 public enum Species {
     Cats,
-    Dogs;
+    Dogs,
+    Rabbits,
+    Monkeys
 }
 
 
