@@ -122,7 +122,7 @@ public class Employee_Controller extends Main {
             addAnimal.setString(4, animalID);
             addAnimal.executeUpdate();
 
-            ch_species.getItems().clear();
+            ch_species.getSelectionModel().clearSelection();
             tf_breed.clear();
             tf_petName.clear();
             tf_animalID.clear();
