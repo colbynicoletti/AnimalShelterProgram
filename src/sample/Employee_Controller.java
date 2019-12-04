@@ -106,6 +106,7 @@ public class Employee_Controller extends Main {
         ch_species.getItems().addAll(Species.Cats);
         ch_species.getItems().addAll(Species.Rabbits);
         ch_species.getItems().addAll(Species.Monkeys);
+        //
     }
 
     private void addToAnimalTable(MouseEvent event) {
