@@ -6,11 +6,20 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
 
+.label {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-stroke: white;
+    -fx-stroke-width: 2px;
+
+}
+
 .button:hover {
     -fx-background-color: linear-gradient(#2A5058, #61a2b1);
 }
+
 .root {
-    -fx-background-image:url("AnimalBackground.jpg");
+    -fx-background-image: url("AnimalBackground.jpg");
     -fx-background-size: 100%;
 }
 

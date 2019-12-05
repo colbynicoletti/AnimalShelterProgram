@@ -50,6 +50,8 @@ public class Customer_Controller extends Employee_Controller {
     @FXML
     private TableView<AnimalType> tv_animalAdopt;
     @FXML
+    private Button btn_adopt;
+    @FXML
     private Button donateButton;
     @FXML
     private TextArea appTxt;
@@ -76,12 +78,8 @@ public class Customer_Controller extends Employee_Controller {
      */
     public void initialize() {
         populateAdoptTable();
-        // sets the combo box initial value to species
-        speciesCombo.setValue("Species");
         //populating the combo box with the animal species arrraylist
         speciesCombo.setItems(animalSpecies);
-        //setting the initial value to breed
-        breedCombo.setValue("Breed");
         //populates the combobox with apointed time
         timeCombo.setItems(appointmentTime);
 
@@ -95,7 +93,6 @@ public class Customer_Controller extends Employee_Controller {
     @FXML
     void breedChoice(ActionEvent event) {
         //if else statements for animal selection if the species is selected populate the breed box with the selected species
-        breedCombo.setValue("Select Breeds");
         if (speciesCombo.getValue().equals("Dogs")) {
             breedCombo.setItems(dogBreeds);
             System.out.println("print dog");
@@ -122,13 +119,20 @@ public class Customer_Controller extends Employee_Controller {
      */
     @FXML
     void adoptButton(ActionEvent event) throws SQLException {
-        System.out.println("Adopted");
-        AnimalType am = tv_animalAdopt.getSelectionModel().getSelectedItem();
-        selectedAnimal.setText(am.toString());
-        Alert b = new Alert(Alert.AlertType.INFORMATION);
-        b.setAlertType(Alert.AlertType.CONFIRMATION);
-        b.setContentText("ANIMAL ADOPTED: \n" + am + "\nPlease schedule an appointment");
-        b.show();
+        if (tv_animalAdopt.getSelectionModel().getSelectedItem() != null) {
+            System.out.println("Adopted");
+            AnimalType am = tv_animalAdopt.getSelectionModel().getSelectedItem();
+            selectedAnimal.setText(am.toString());
+            Alert b = new Alert(Alert.AlertType.INFORMATION);
+            b.setAlertType(Alert.AlertType.CONFIRMATION);
+            b.setContentText("ANIMAL ADOPTED: \n" + am + "\nPlease schedule an appointment");
+            b.show();
+        } else {
+            Alert a = new Alert(Alert.AlertType.WARNING);
+            a.setAlertType(Alert.AlertType.WARNING);
+            a.setContentText("Please select an Animal.");
+            a.show();
+        }
     }
 
     /**
@@ -140,20 +144,28 @@ public class Customer_Controller extends Employee_Controller {
      */
     @FXML
     void submitAppointment(ActionEvent event) throws SQLException, IOException {
-        System.out.println("Thank you for your interest in Adopting");
-        System.out.println("Below is your appointment information");
-        System.out.println(nameField.getText());
-        System.out.println(numberField.getText());
-        System.out.println("Date and time: ");
-        System.out.println(dateAndTime.getValue());
-        System.out.println(timeCombo.getValue());
-        loadAdoption();
-        // this alert pops up for the adoption giving information and instruction
-        Alert a = new Alert(Alert.AlertType.NONE);
-        a.setAlertType(Alert.AlertType.CONFIRMATION);
-        a.setContentText("THANK YOU FOR FOR ADOPTING" + "\nBelow is your information: " + "\n" + "Name: " + nameField.getText() + "\n" + "Number: " + numberField.getText() + "\n" + "Date: " + dateAndTime.getValue() + "\n" + "Time: " + timeCombo.getValue());
-        a.show();
-
+        //if statement that checks the input if its not filled it will respond an error to please fill in the blank
+        if (tv_animalAdopt.getSelectionModel().getSelectedItem() != null && nameField.getText() != null && dateAndTime.getValue() != null && timeCombo.getValue() != null && numberField != null) {
+            System.out.println("Thank you for your interest in Adopting");
+            System.out.println("Below is your appointment information");
+            System.out.println(nameField.getText());
+            System.out.println(numberField.getText());
+            System.out.println("Date and time: ");
+            System.out.println(dateAndTime.getValue());
+            System.out.println(timeCombo.getValue());
+            loadAdoption();
+            // this alert pops up for the adoption giving information and instruction
+            Alert a = new Alert(Alert.AlertType.NONE);
+            a.setAlertType(Alert.AlertType.CONFIRMATION);
+            a.setContentText("THANK YOU FOR FOR ADOPTING" + "\nBelow is your information: " + "\n" + "Name: " + nameField.getText() + "\n" + "Number: " + numberField.getText() + "\n" + "Date: " + dateAndTime.getValue() + "\n" + "Time: " + timeCombo.getValue());
+            a.show();
+        } else {
+            //alert to ask them to please fill in *
+            Alert a = new Alert(Alert.AlertType.WARNING);
+            a.setAlertType(Alert.AlertType.WARNING);
+            a.setContentText("Please fill in *");
+            a.show();
+        }
     }
 
     /**
@@ -178,36 +190,45 @@ public class Customer_Controller extends Employee_Controller {
      */
     @FXML
     void search_Btn(ActionEvent event) {
-        // this clears the columns
-        tv_animalAdopt.getItems().clear();
-        //creating string variables to select species and breed
-        String selectionSpecies = speciesCombo.getValue();
-        String selectionBreed = breedCombo.getValue();
-        //populates the tableview with the observable arraylist
-        tv_animalAdopt.setItems(animalObservableList);
-        // if statements and sql statements that filters through the database
-        try {
-            //Searching the database through if selected other populate the database with species
-            if (selectionBreed == "Other") {
-                String sql = "SELECT * FROM ANIMALS WHERE SPECIES='" + selectionSpecies + "'";
+        // if the value is empty pop an alert
+        if (speciesCombo.getValue() != null) {
+            // this clears the columns
+            tv_animalAdopt.getItems().clear();
+            //creating string variables to select species and breed
+            String selectionSpecies = speciesCombo.getValue();
+            String selectionBreed = breedCombo.getValue();
+            //populates the tableview with the observable arraylist
+            tv_animalAdopt.setItems(animalObservableList);
+            // if statements and sql statements that filters through the database
+            try {
+                //Searching the database through if selected other populate the database with species
+                if (selectionBreed == "Other") {
+                    String sql = "SELECT * FROM ANIMALS WHERE SPECIES='" + selectionSpecies + "'";
+                    ResultSet rs = Login_Controller.stmt.executeQuery(sql);
+                    while (rs.next()) {
+                        // these lines correspond to the database table columns
+                        animalObservableList.add(
+                                new Widget(Species.valueOf(rs.getString("species")), rs.getString("breed"), rs.getString("petName"), rs.getString("animalID")));
+                    }
+                }
+                //sql function that search based on breed and filters it and displays it into the tableview
+                String sql = "SELECT * FROM ANIMALS WHERE SPECIES='" + selectionSpecies + "' AND BREED ='" + selectionBreed + "'";
                 ResultSet rs = Login_Controller.stmt.executeQuery(sql);
                 while (rs.next()) {
                     // these lines correspond to the database table columns
                     animalObservableList.add(
                             new Widget(Species.valueOf(rs.getString("species")), rs.getString("breed"), rs.getString("petName"), rs.getString("animalID")));
                 }
-            }
-            //sql function that search based on breed and filters it and displays it into the tableview
-            String sql = "SELECT * FROM ANIMALS WHERE SPECIES='" + selectionSpecies + "' AND BREED ='" + selectionBreed + "'";
-            ResultSet rs = Login_Controller.stmt.executeQuery(sql);
-            while (rs.next()) {
-                // these lines correspond to the database table columns
-                animalObservableList.add(
-                        new Widget(Species.valueOf(rs.getString("species")), rs.getString("breed"), rs.getString("petName"), rs.getString("animalID")));
-            }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            // alert box that ask to please select species and animal
+            Alert a = new Alert(Alert.AlertType.WARNING);
+            a.setAlertType(Alert.AlertType.WARNING);
+            a.setContentText("Please select Species and Animals.");
+            a.show();
         }
 
     }
@@ -219,6 +240,7 @@ public class Customer_Controller extends Employee_Controller {
      */
     @FXML
     void loadAdoption() throws SQLException {
+        //code to take the adoption inputs and throws it into the database
         AnimalType am = tv_animalAdopt.getSelectionModel().getSelectedItem();
         String name = nameField.getText();
         String animalID = am.getAnimalID();
@@ -239,6 +261,7 @@ public class Customer_Controller extends Employee_Controller {
      * Method used to populate the adoption table
      */
     void populateAdoptTable() {
+
         ObservableList<String> animalList = FXCollections.observableArrayList();
 
         tbc_species.setCellValueFactory(new PropertyValueFactory<>("species"));
