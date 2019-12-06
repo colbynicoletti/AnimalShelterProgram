@@ -16,8 +16,9 @@ Database manipulation
 - New user information 
 - Animal information including 
 - Species, breed, pet name, animal ID  
+
 Stylesheet features to create a more aesthetic feel for the user
-- CSS file interacts with the all scene builder features including 
+ CSS file interacts with the all scene builder features including 
 - Buttons
 - ComboBoxes 
 - Tables
