@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalTime;
@@ -110,11 +111,12 @@ public class Employee_Controller extends Main {
     }
 
     private void addToAnimalTable(MouseEvent event) {
-        Species species = ch_species.getValue();
-        String breeds = tf_breed.getText();
-        String petName = tf_petName.getText();
-        String animalID = tf_animalID.getText();
         try {
+            Species species = ch_species.getValue();
+            String breeds = tf_breed.getText();
+            String petName = tf_petName.getText();
+            String animalID = tf_animalID.getText();
+
             String animalQuery = "INSERT INTO ANIMALS(SPECIES,BREED,PETNAME,ANIMALID) VALUES (?,?,?,?)";
             PreparedStatement addAnimal = Login_Controller.conn.prepareStatement(animalQuery);
             addAnimal.setString(1, species.toString());
@@ -132,6 +134,9 @@ public class Employee_Controller extends Main {
             addAnimal.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "All fields must be filled " +
+                    "in before adding animal.");
         }
     }
 
@@ -153,18 +158,20 @@ public class Employee_Controller extends Main {
         }
         rs.close();
     }
-    public void setLv_displayAnimal(){
+
+    public void setLv_displayAnimal() {
         for (AnimalType animal : animalObservableList) {
             lv_displayAnimal.getItems().add(animal);
         }
     }
 
     private void addEvent(MouseEvent event) {
+        try {
         String animalId = lv_displayAnimal.getSelectionModel().getSelectedItem().getAnimalID();
         EventList events = ch_event.getSelectionModel().getSelectedItem();
         String date = datePicker.getValue().toString();
         String time = cb_time.getSelectionModel().getSelectedItem().toString();
-        try {
+
             String adoptionQuery = "INSERT INTO EVENT(ANIMAL_ID, EVENTS, DATE, TIME) VALUES (?,?,?,?)";
             PreparedStatement addEvent = Login_Controller.conn.prepareStatement(adoptionQuery);
             addEvent.setString(1, animalId);
@@ -173,10 +180,22 @@ public class Employee_Controller extends Main {
             addEvent.setString(4, time);
             addEvent.executeUpdate();
 
+            Alert a = new Alert(Alert.AlertType.NONE);
+            a.setAlertType(Alert.AlertType.CONFIRMATION);
+            a.setContentText("Animal has been successfully added to the database.");
+            a.show();
             eventsObservableList.clear();
+            lv_displayAnimal.getSelectionModel().clearSelection();
+            ch_event.getSelectionModel().clearSelection();
+            datePicker.getEditor().clear();
+            cb_time.getSelectionModel().clearSelection();
             setTvDisplay();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        catch (NullPointerException e){
+            JOptionPane.showMessageDialog(null, "All fields must be filled " +
+                    "in before adding an event.");
         }
     }
 
@@ -197,7 +216,8 @@ public class Employee_Controller extends Main {
         rs.close();
     }
 
-    /**'
+    /**
+     * '
      *
      * @throws SQLException
      */
@@ -212,7 +232,7 @@ public class Employee_Controller extends Main {
             String animalID = rs.getString(1);
             String customerName = rs.getString(2);
             String phoneNumber = rs.getString(3);
-            String date =(rs.getString(4));
+            String date = (rs.getString(4));
             String time = rs.getString(5);
             // create object
             Adoptions adoptionDB =
@@ -230,12 +250,12 @@ public class Employee_Controller extends Main {
     }
 
     public void populateTime() {
-        for(int i = 1; i <= 24; i++) {
+        for (int i = 1; i <= 24; i++) {
             cb_time.getItems().add(i + ":" + "00 hrs");
         }
     }
 
-  public void populateEvents() {
+    public void populateEvents() {
         ch_event.getItems().add(EventList.Vet_Checkup);
         ch_event.getItems().add(EventList.Kennel_Cleaning);
         ch_event.getItems().add(EventList.Animal_Washing);
@@ -264,8 +284,13 @@ public class Employee_Controller extends Main {
         tf_animalID.clear();
         String breed = tf_breed.getText();
         String petName = tf_petName.getText();
-        Random rdmNumber = new Random();
-        String animalId = String.format("%04d", rdmNumber.nextInt(1000));
-        tf_animalID.appendText(breed.substring(0, 3).toUpperCase() + petName.substring(0, 3).toLowerCase() + animalId);
+        if ((!breed.equals("")) && (!petName.equals(""))) {
+            Random rdmNumber = new Random();
+            String animalId = String.format("%04d", rdmNumber.nextInt(1000));
+            tf_animalID.appendText(breed.substring(0, 3).toUpperCase() + petName.substring(0, 3).toLowerCase() + animalId);
+        } else {
+            JOptionPane.showMessageDialog(null, "Breed and pet name must be " +
+                    "filled in before generating id");
+        }
     }
 }

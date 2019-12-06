@@ -29,8 +29,14 @@ public class Employee {
             setUsername(sbName);
             setEmail(sbName);
         }
+        else {
+            this.username = "";
+        }
         if (isValidPassword(password)) {
             this.password = password;
+        }
+        else {
+            this.password = "";
         }
     }
 
