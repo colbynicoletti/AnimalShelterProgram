@@ -1,5 +1,8 @@
 package sample;
 
+/**
+ * Enum for creating events.
+ */
 public enum EventList {
     Vet_Checkup,
     Kennel_Cleaning,

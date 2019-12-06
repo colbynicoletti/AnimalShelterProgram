@@ -12,21 +12,20 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.sql.*;
-import java.time.LocalTime;
-import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Random;
 
 /**
- *
+ * Employee Class Controller that handles FXML functionality
  */
-
+@SuppressWarnings("ALL")
 public class Employee_Controller extends Main {
 
+    /**
+     * SceneBuilder fields for FXML elements
+     */
     @FXML
     public TextField tf_breed;
 
@@ -84,17 +83,24 @@ public class Employee_Controller extends Main {
     @FXML
     private TextArea ta_adoptionRecord;
 
+    /**
+     * Class level fields.
+     */
     public ObservableList<AnimalType> animalObservableList = FXCollections.observableArrayList();
     private ObservableList<Events> eventsObservableList;
     private ArrayList<Adoptions> adoptRecordArray;
 
-
+    /**
+     * Method that Starts the call to class methods.
+     *
+     * @throws SQLException checks if sql statement is valid.
+     */
     public void initialize() throws SQLException {
-        populateEvents();
+        populateEventsCh();
         populateTime();
         setupTableView();
         setTvDisplay();
-        populateSpeciesCb();
+        populateSpeciesCh();
         addToObservableList();
         loadAdoptionLog();
         showAdoptions();
@@ -102,21 +108,79 @@ public class Employee_Controller extends Main {
         btn_submitEvent.setOnMouseClicked(this::addEvent);
     }
 
-    private void populateSpeciesCb() {
+    /**
+     * Method to set Species ChoiceBox.
+     */
+    private void populateSpeciesCh() {
         ch_species.getItems().addAll(Species.Dogs);
         ch_species.getItems().addAll(Species.Cats);
         ch_species.getItems().addAll(Species.Rabbits);
         ch_species.getItems().addAll(Species.Monkeys);
-        //
     }
 
-    private void addToAnimalTable(MouseEvent event) {
-        try {
-            Species species = ch_species.getValue();
-            String breeds = tf_breed.getText();
-            String petName = tf_petName.getText();
-            String animalID = tf_animalID.getText();
+    /**
+     * Method to set Event ChoiceBox.
+     */
+    public void populateEventsCh() {
+        ch_event.getItems().add(EventList.Vet_Checkup);
+        ch_event.getItems().add(EventList.Kennel_Cleaning);
+        ch_event.getItems().add(EventList.Animal_Washing);
+        ch_event.getItems().add(EventList.Give_Medication);
+        ch_event.getItems().add(EventList.Feed_Animal);
 
+    }
+
+    /**
+     * Method to display animal observable list into List view.
+     */
+    public void setLv_displayAnimal() {
+        for (AnimalType animal : animalObservableList) {
+            lv_displayAnimal.getItems().add(animal);
+        }
+    }
+
+    /**
+     * Method to set Event table View.
+     */
+    private void setupTableView() {
+        eventsObservableList = FXCollections.observableArrayList();
+        colAnimalID.setCellValueFactory(new PropertyValueFactory("animalID"));
+        colEvent.setCellValueFactory(new PropertyValueFactory("events"));
+        colDate.setCellValueFactory(new PropertyValueFactory("date"));
+        colTime.setCellValueFactory(new PropertyValueFactory("time"));
+        tvDisplay.setItems(eventsObservableList);
+    }
+
+    /**
+     * Method to show adoption record in text area.
+     */
+    public void showAdoptions() {
+        for (int i = 0; i < adoptRecordArray.size(); i++) {
+            ta_adoptionRecord.appendText(adoptRecordArray.get(i).toString() + "\n");
+        }
+    }
+
+    /**
+     * Method for time comboBox.
+     */
+    public void populateTime() {
+        for (int i = 1; i <= 24; i++) {
+            cb_time.getItems().add(i + ":" + "00 hrs");
+        }
+    }
+//*****************************************************************************************************************
+
+    /**
+     * Method for button to insert Animal Values into the Animal table.
+     *
+     * @param event MouseEvent
+     */
+    private void addToAnimalTable(MouseEvent event) {
+        Species species = ch_species.getValue();
+        String breeds = tf_breed.getText();
+        String petName = tf_petName.getText();
+        String animalID = tf_animalID.getText();
+        try {
             String animalQuery = "INSERT INTO ANIMALS(SPECIES,BREED,PETNAME,ANIMALID) VALUES (?,?,?,?)";
             PreparedStatement addAnimal = Login_Controller.conn.prepareStatement(animalQuery);
             addAnimal.setString(1, species.toString());
@@ -134,12 +198,14 @@ public class Employee_Controller extends Main {
             addAnimal.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "All fields must be filled " +
-                    "in before adding animal.");
         }
     }
 
+    /**
+     * Method for button to display the Animal Table and add values to animal observable list.
+     *
+     * @throws SQLException checks if sql statement is valid
+     */
     public void addToObservableList() throws SQLException {
         String sql = "SELECT * FROM ANIMALS";
         ResultSet rs = Login_Controller.stmt.executeQuery(sql);
@@ -159,19 +225,17 @@ public class Employee_Controller extends Main {
         rs.close();
     }
 
-    public void setLv_displayAnimal() {
-        for (AnimalType animal : animalObservableList) {
-            lv_displayAnimal.getItems().add(animal);
-        }
-    }
-
+    /**
+     * Method for button to insert into Event table calls event observable list
+     *
+     * @param event MouseEvent
+     */
     private void addEvent(MouseEvent event) {
-        try {
         String animalId = lv_displayAnimal.getSelectionModel().getSelectedItem().getAnimalID();
         EventList events = ch_event.getSelectionModel().getSelectedItem();
         String date = datePicker.getValue().toString();
         String time = cb_time.getSelectionModel().getSelectedItem().toString();
-
+        try {
             String adoptionQuery = "INSERT INTO EVENT(ANIMAL_ID, EVENTS, DATE, TIME) VALUES (?,?,?,?)";
             PreparedStatement addEvent = Login_Controller.conn.prepareStatement(adoptionQuery);
             addEvent.setString(1, animalId);
@@ -180,25 +244,18 @@ public class Employee_Controller extends Main {
             addEvent.setString(4, time);
             addEvent.executeUpdate();
 
-            Alert a = new Alert(Alert.AlertType.NONE);
-            a.setAlertType(Alert.AlertType.CONFIRMATION);
-            a.setContentText("Animal has been successfully added to the database.");
-            a.show();
             eventsObservableList.clear();
-            lv_displayAnimal.getSelectionModel().clearSelection();
-            ch_event.getSelectionModel().clearSelection();
-            datePicker.getEditor().clear();
-            cb_time.getSelectionModel().clearSelection();
             setTvDisplay();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        catch (NullPointerException e){
-            JOptionPane.showMessageDialog(null, "All fields must be filled " +
-                    "in before adding an event.");
-        }
     }
 
+    /**
+     * Method to display Event table view and add to event observable list.
+     *
+     * @throws SQLException checks if sql statement is valid.
+     */
     public void setTvDisplay() throws SQLException {
         String sql = "SELECT * FROM EVENT";
         ResultSet rs = Login_Controller.stmt.executeQuery(sql);
@@ -218,10 +275,10 @@ public class Employee_Controller extends Main {
 
     /**
      * '
+     * Method to display Adoptions made by customer
      *
-     * @throws SQLException
+     * @throws SQLException checks if sql statement is valid
      */
-
     public void loadAdoptionLog() throws SQLException {
 
         adoptRecordArray = new ArrayList<>();
@@ -232,46 +289,36 @@ public class Employee_Controller extends Main {
             String animalID = rs.getString(1);
             String customerName = rs.getString(2);
             String phoneNumber = rs.getString(3);
-            String date = (rs.getString(4));
+            String date = rs.getString(4);
             String time = rs.getString(5);
+            String petName = rs.getString(6);
             // create object
             Adoptions adoptionDB =
-                    new Adoptions(animalID, customerName, phoneNumber, date, time);
+                    new Adoptions(animalID, customerName, phoneNumber, date, time, petName);
             // save to observable list
             adoptRecordArray.add(adoptionDB);
         }
         rs.close();
     }
 
-    public void showAdoptions() {
-        for (int i = 0; i < adoptRecordArray.size(); i++) {
-            ta_adoptionRecord.appendText(adoptRecordArray.get(i).toString() + "\n");
-        }
+    /**
+     * Method used to generate an animal ID.
+     */
+    public void generateId() {
+        tf_animalID.clear();
+        String breed = tf_breed.getText();
+        String petName = tf_petName.getText();
+        Random rdmNumber = new Random();
+        String animalId = String.format("%04d", rdmNumber.nextInt(1000));
+        tf_animalID.appendText(breed.substring(0, 3).toUpperCase() + petName.substring(0, 3).toLowerCase() + animalId);
     }
 
-    public void populateTime() {
-        for (int i = 1; i <= 24; i++) {
-            cb_time.getItems().add(i + ":" + "00 hrs");
-        }
-    }
-
-    public void populateEvents() {
-        ch_event.getItems().add(EventList.Vet_Checkup);
-        ch_event.getItems().add(EventList.Kennel_Cleaning);
-        ch_event.getItems().add(EventList.Animal_Washing);
-        ch_event.getItems().add(EventList.Give_Medication);
-        ch_event.getItems().add(EventList.Feed_Animal);
-    }
-
-    private void setupTableView() {
-        eventsObservableList = FXCollections.observableArrayList();
-        colAnimalID.setCellValueFactory(new PropertyValueFactory("animalID"));
-        colEvent.setCellValueFactory(new PropertyValueFactory("events"));
-        colDate.setCellValueFactory(new PropertyValueFactory("date"));
-        colTime.setCellValueFactory(new PropertyValueFactory("time"));
-        tvDisplay.setItems(eventsObservableList);
-    }
-
+    /**
+     * Method used to make home button.
+     *
+     * @param event MouseEvent
+     * @throws IOException checks if IO statement is valid
+     */
     public void previous(MouseEvent event) throws IOException {
         Parent newRoot = FXMLLoader.load(getClass().getResource("login.fxml"));
         Scene homePage = new Scene(newRoot);
@@ -279,18 +326,7 @@ public class Employee_Controller extends Main {
         appStage.setScene(homePage);
         appStage.show();
     }
-
-    public void generateId() {
-        tf_animalID.clear();
-        String breed = tf_breed.getText();
-        String petName = tf_petName.getText();
-        if ((!breed.equals("")) && (!petName.equals(""))) {
-            Random rdmNumber = new Random();
-            String animalId = String.format("%04d", rdmNumber.nextInt(1000));
-            tf_animalID.appendText(breed.substring(0, 3).toUpperCase() + petName.substring(0, 3).toLowerCase() + animalId);
-        } else {
-            JOptionPane.showMessageDialog(null, "Breed and pet name must be " +
-                    "filled in before generating id");
-        }
-    }
 }
+
+
+

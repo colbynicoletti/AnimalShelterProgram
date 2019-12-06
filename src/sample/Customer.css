@@ -6,17 +6,22 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
 
-.table-view{
+.table-view {
     -fx-font-weight: bold;
     -fx-text-fill: Black;
 }
-.tab-pane{
+
+/*noinspection ALL*/
+.tab-pane {
     -fx-font-weight: Bold;
 }
+
 .button:hover {
     -fx-background-color: linear-gradient(#2A5058, #61a2b1);
 }
+
+/*noinspection ALL*/
 .root {
-    -fx-background-image:url("customerBackground.jpg");
+    -fx-background-image: url("customerBackground.jpg");
     -fx-background-size: 100%;
 }

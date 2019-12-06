@@ -1,28 +1,55 @@
 package sample;
 
+/**
+ * Event Class
+ */
 public class Events {
     private String animalID;
     private String events;
     private String date;
     private String time;
 
-    Events(String animalID, String events, String date, String time){
+    Events(String animalID, String events, String date, String time) {
         this.animalID = animalID;
         this.events = events;
         this.date = date;
         this.time = time;
     }
 
-    public String getAnimalID(){
+
+    /**
+     * Accessor to get ID field.
+     *
+     * @return String animalID
+     */
+    public String getAnimalID() {
         return animalID;
     }
-    public String getEvents(){
+
+    /**
+     * Accessor to get Event field.
+     *
+     * @return String
+     */
+    public String getEvents() {
         return events;
     }
-    public String getDate(){
+
+    /**
+     * Accessor to get Date field.
+     *
+     * @return String
+     */
+    public String getDate() {
         return date;
     }
-    public String getTime(){
+
+    /**
+     * Accessor to get Time field.
+     *
+     * @return String
+     */
+    public String getTime() {
         return time;
     }
 }

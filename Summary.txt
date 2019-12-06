@@ -1,0 +1,39 @@
+Animal Shelter Program Summary:
+
+•	Login Scene: 
+Allows employee and customer to enter program. Connection to animal shelter database is established on this scene. 
+Employee can create an account by using their first name, last name, and with the password field. 
+Employee also needs the employee code given by the animal shelter to create account (Refer to README file for code).
+The employee code can also be changed. (initial employee code: AS123)
+*************************************************************************************************************************************************
+Employee Scenes
+•	Check-In: 
+This scene allows the animal shelter employee to create animals in the database. 
+Animals must be generated an animal ID code before entry into the database. 
+Animals are created with their species, breed, name, and animal ID.
+
+•	Schedule Events: 
+This scene allows the animal shelter employee to add events to specific animals. 
+Events are anything that the animal might be scheduled for by the animal shelter. 
+Events are created with selection of the specific animal, event, date, and time.
+
+•	Display Event: 
+This scene allows the animal shelter employee to identify the event that he or she has created in the database for each specific animal.
+
+•	Adoptions: 
+This scene is populated by the customer adopting an animal and submitting an appointment. 
+This allows the employee to view any adoption appointments for animals.
+*************************************************************************************************************************************************
+Customer Scenes
+•	Adopt: 
+This scene allows the customer to view the selection of animals that can be adopted from the database. 
+The animals are created by the animal shelter employees. The customer may also search through the database listing by selecting a species 
+and breed then clicking the search button.
+
+•	Make an Appointment:
+ This scene allows the customer to create an appointment date for the animal shelter employees to view. 
+The customer must select an animal to adopt prior to creation of an appointment of adoption.
+
+•	Donate: 
+This scene allows the customer to donate to the animal shelter at the click of a button. 
+The button has a link to a donation browser page for the customer to donate any amount they want.

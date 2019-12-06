@@ -1,5 +1,8 @@
 package sample;
 
+/**
+ * Animal interface implemented in abstract class AnimalType.
+ */
 public interface Animal {
     void setSpecies(Species species);
 

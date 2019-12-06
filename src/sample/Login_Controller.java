@@ -14,16 +14,21 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.sql.*;
 import java.util.Properties;
 
+
+/**
+ * Login Class Controller that handles FXML functionality
+ */
+@SuppressWarnings("ALL")
 public class Login_Controller {
 
+    /**
+     * SceneBuilder fields for FXML elements
+     */
     @FXML
     public Button btn_employeeLogin;
 
@@ -35,7 +40,6 @@ public class Login_Controller {
 
     @FXML
     private TextField tf_username;
-
 
     @FXML
     private PasswordField tf_employeePass;
@@ -54,9 +58,17 @@ public class Login_Controller {
 
     private Employee myEmployee;
 
+    /**
+     * Class level fields
+     */
     public static Connection conn;
     public static Statement stmt;
 
+    /**
+     * Method that Starts the call to class methods.
+     *
+     * @throws SQLException checks if sql statement is valid.
+     */
     public void initialize() {
         final String JDBC_DRIVER = "org.h2.Driver";
         final String DB_URL = "jdbc:h2:./res/AnimalShelterDB";
@@ -77,8 +89,15 @@ public class Login_Controller {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.show();
         }
+        startTA();
     }
 
+    /**
+     * Method for customer login button.
+     *
+     * @param event MouseEvent
+     * @throws IOException checks if IO statement is valid.
+     */
     @FXML
     public void customerLogin(MouseEvent event) throws IOException {
         System.out.println("Customer Login Button Clicked.");
@@ -91,6 +110,14 @@ public class Login_Controller {
         appStage.show();
     }
 
+
+    /**
+     * Method for employee login button also handles checks for employee info.
+     *
+     * @param event MouseEvent
+     * @throws IOException  checks if IO statement is valid
+     * @throws SQLException checks if sql statement is valid
+     */
     @FXML
     public void employeeLogin(MouseEvent event) throws IOException, SQLException {
         String getUsername = tf_username.getText();
@@ -117,6 +144,12 @@ public class Login_Controller {
         rs.close();
     }
 
+
+    /**
+     * Method to create employee account and insert employee values into database
+     *
+     * @throws SQLException checks if sql statement is valid
+     */
     public void account() throws SQLException {
         String name = tf_firstAndLastName.getText();
         String password = tf_employeePass.getText();
@@ -157,15 +190,39 @@ public class Login_Controller {
 
     }
 
+
+    /**
+     * Method for create account button, calls account method.
+     *
+     * @param event MouseEvent
+     * @throws SQLException checks if sql statement is valid
+     */
     @FXML
     void createAccount(MouseEvent event) throws SQLException {
         account();
+
     }
 
 
+    /**
+     * Method for employee name
+     *
+     * @param event MouseEvent
+     */
     @FXML
     void firstAndLastName(MouseEvent event) {
 
+    }
+
+    /**
+     * Method to initialize text area instructions
+     */
+    void startTA() {
+        ta_employeeAccount.appendText("Are you an employee with the shelter? \n" +
+                "enter your Last name and First Name \n" +
+                "Then enter a Password to create an account \n\n" +
+                "P.S dont forget the employee code given \n" +
+                "by the shelter");
     }
 }
 

@@ -23,6 +23,7 @@ import java.net.URISyntaxException;
 import java.sql.*;
 import java.time.LocalDate;
 
+@SuppressWarnings("ALL")
 public class Customer_Controller extends Employee_Controller {
 
     @FXML
@@ -247,13 +248,14 @@ public class Customer_Controller extends Employee_Controller {
         LocalDate date = dateAndTime.getValue();
         String time = timeCombo.getValue();
         String phone = numberField.getText();
-        String adoptionQuery = "INSERT INTO ADOPTION_TABLE (ANIMAL_ID, CUSTOMER_NAME, PHONE_NUMBER, DATE, TIME) VALUES(?, ?, ?, ?, ?)";
+        String adoptionQuery = "INSERT INTO ADOPTION_TABLE (ANIMAL_ID, CUSTOMER_NAME, PHONE_NUMBER, DATE, TIME, PET_NAME) VALUES(?, ?, ?, ?, ?, ?)";
         PreparedStatement adoptionDB = Login_Controller.conn.prepareStatement(adoptionQuery);
         adoptionDB.setString(1, animalID);
         adoptionDB.setString(2, name);
         adoptionDB.setString(3, phone);
         adoptionDB.setString(4, String.valueOf(date));
         adoptionDB.setString(5, time);
+        adoptionDB.setString(6, am.getPetName());
         adoptionDB.executeUpdate();
     }
 
