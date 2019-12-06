@@ -121,15 +121,16 @@ public class Login_Controller {
         String name = tf_firstAndLastName.getText();
         String password = tf_employeePass.getText();
         if ((!name.equals("")) || (!password.equals(""))) {
-            String employeeCode = JOptionPane.showInputDialog("Input Employee Code");
-            if (employeeCode.equals("AS123")) {
-                myEmployee = new Employee(name, password);
-                String productQuery = "INSERT INTO EMPLOYEE(NAME, USERNAME, PASSWORD, EMAIL) VALUES (?,?,?,?)";
-                PreparedStatement addEmployee = Login_Controller.conn.prepareStatement(productQuery);
-                try {
-                    if ((myEmployee.getUsername().equals("null")) || (myEmployee.getPassword().equals("null"))) {
-                        throw new NullPointerException();
-                    } else {
+            try {
+                if ((myEmployee.getUsername().equals("null")) || (myEmployee.getPassword().equals("null"))) {
+                    throw new NullPointerException();
+                } else {
+                    String employeeCode = JOptionPane.showInputDialog("Input Employee Code");
+                    if (employeeCode.equals("AS123")) {
+                        myEmployee = new Employee(name, password);
+                        String productQuery = "INSERT INTO EMPLOYEE(NAME, USERNAME, PASSWORD, EMAIL) VALUES (?,?,?,?)";
+                        PreparedStatement addEmployee = Login_Controller.conn.prepareStatement(productQuery);
+
                         addEmployee.setString(1, name);
                         addEmployee.setString(2, myEmployee.getUsername());
                         addEmployee.setString(3, password);
@@ -140,18 +141,19 @@ public class Login_Controller {
                         tf_firstAndLastName.clear();
                         tf_employeePass.clear();
                         ta_employeeAccount.appendText(myEmployee.toString() + "\n\n");
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Invalid employee code. " +
+                                "\nNote: Only employees need to create accounts and log in");
                     }
-                } catch (NullPointerException e) {
-                    JFrame frame = new JFrame("");
-                    JOptionPane.showMessageDialog(
-                            frame.getContentPane(),
-                            "Username or password has invalid format.\n",
-                            "Invalid Format",
-                            JOptionPane.ERROR_MESSAGE);
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Invalid employee code. " +
-                        "\nNote: Only employees need to create accounts and log in");
+            } catch (NullPointerException e) {
+                JFrame frame = new JFrame("");
+                JOptionPane.showMessageDialog(
+                        frame.getContentPane(),
+                        "Username or password has invalid format.\n",
+                        "Invalid Format",
+                        JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Name or password is empty.");

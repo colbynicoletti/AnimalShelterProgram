@@ -260,12 +260,6 @@ public class Employee_Controller extends Main {
         appStage.show();
     }
 
-//    @FXML
-//    public void checkIn(MouseEvent event) {
-//        observableAnimal.add(new Widget(species, breeds, petName, animalID));
-//        tvDisplay.getItems().add((Animal) observableAnimal);
-//    }
-
     public void generateId() {
         tf_animalID.clear();
         String breed = tf_breed.getText();

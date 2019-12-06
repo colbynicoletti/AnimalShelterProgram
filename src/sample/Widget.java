@@ -1,11 +1,9 @@
 package sample;
 
 public class Widget extends AnimalType {
-
     Widget(Species species, String breeds, String petName, String animalID) {
         super(species, breeds, petName, animalID);
     }
-
 
     @Override
     public void setSpecies(Species species) {
@@ -30,4 +28,3 @@ public class Widget extends AnimalType {
     }
 
 }
-
