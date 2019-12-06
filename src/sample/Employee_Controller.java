@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -176,11 +177,12 @@ public class Employee_Controller extends Main {
      * @param event MouseEvent
      */
     private void addToAnimalTable(MouseEvent event) {
-        Species species = ch_species.getValue();
-        String breeds = tf_breed.getText();
-        String petName = tf_petName.getText();
-        String animalID = tf_animalID.getText();
         try {
+            Species species = ch_species.getValue();
+            String breeds = tf_breed.getText();
+            String petName = tf_petName.getText();
+            String animalID = tf_animalID.getText();
+
             String animalQuery = "INSERT INTO ANIMALS(SPECIES,BREED,PETNAME,ANIMALID) VALUES (?,?,?,?)";
             PreparedStatement addAnimal = Login_Controller.conn.prepareStatement(animalQuery);
             addAnimal.setString(1, species.toString());
@@ -198,6 +200,9 @@ public class Employee_Controller extends Main {
             addAnimal.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "All fields must be filled " +
+                    "in before adding animal.");
         }
     }
 
@@ -231,11 +236,12 @@ public class Employee_Controller extends Main {
      * @param event MouseEvent
      */
     private void addEvent(MouseEvent event) {
-        String animalId = lv_displayAnimal.getSelectionModel().getSelectedItem().getAnimalID();
-        EventList events = ch_event.getSelectionModel().getSelectedItem();
-        String date = datePicker.getValue().toString();
-        String time = cb_time.getSelectionModel().getSelectedItem().toString();
         try {
+            String animalId = lv_displayAnimal.getSelectionModel().getSelectedItem().getAnimalID();
+            EventList events = ch_event.getSelectionModel().getSelectedItem();
+            String date = datePicker.getValue().toString();
+            String time = cb_time.getSelectionModel().getSelectedItem().toString();
+
             String adoptionQuery = "INSERT INTO EVENT(ANIMAL_ID, EVENTS, DATE, TIME) VALUES (?,?,?,?)";
             PreparedStatement addEvent = Login_Controller.conn.prepareStatement(adoptionQuery);
             addEvent.setString(1, animalId);
@@ -244,10 +250,22 @@ public class Employee_Controller extends Main {
             addEvent.setString(4, time);
             addEvent.executeUpdate();
 
+            Alert a = new Alert(Alert.AlertType.NONE);
+            a.setAlertType(Alert.AlertType.CONFIRMATION);
+            a.setContentText("Animal has been successfully added to the database.");
+            a.show();
             eventsObservableList.clear();
+            lv_displayAnimal.getSelectionModel().clearSelection();
+            ch_event.getSelectionModel().clearSelection();
+            datePicker.getEditor().clear();
+            cb_time.getSelectionModel().clearSelection();
             setTvDisplay();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        catch (NullPointerException e){
+            JOptionPane.showMessageDialog(null, "All fields must be filled " +
+                    "in before adding an event.");
         }
     }
 

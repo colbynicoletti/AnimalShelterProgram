@@ -190,7 +190,6 @@ public class Login_Controller {
 
     }
 
-
     /**
      * Method for create account button, calls account method.
      *
@@ -199,6 +198,7 @@ public class Login_Controller {
      */
     @FXML
     void createAccount(MouseEvent event) throws SQLException {
+        ta_employeeAccount.clear();
         account();
 
     }
