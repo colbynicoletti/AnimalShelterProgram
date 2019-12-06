@@ -32,5 +32,5 @@ and better for the user to interact with
 https://drive.google.com/file/d/1vMQbNiGdsw1HHhdw_IZjOmniHqDSAmGB/view
 
 
-
+![Class Diagram](https://media.discordapp.net/attachments/642815606147514389/652371567929589764/class_DIagram_1.JPG?width=720&height=428)
 
